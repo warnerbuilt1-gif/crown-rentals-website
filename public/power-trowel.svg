@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-label="Power trowel photo plate">
+  <rect width="1600" height="900" fill="#0a0a0a"/>
+  <rect x="36" y="36" width="1528" height="828" fill="none" stroke="#c9895c" stroke-opacity="0.22" stroke-width="2"/>
+  <circle cx="800" cy="430" r="250" fill="none" stroke="#c9895c" stroke-opacity="0.18" stroke-width="18"/>
+  <circle cx="800" cy="430" r="78" fill="#1a120e" stroke="#e8b896" stroke-width="8"/>
+  <g fill="#c9895c" opacity="0.92">
+    <rect x="770" y="188" width="60" height="168" rx="8" transform="rotate(8 800 430)"/>
+    <rect x="770" y="188" width="60" height="168" rx="8" transform="rotate(98 800 430)"/>
+    <rect x="770" y="188" width="60" height="168" rx="8" transform="rotate(188 800 430)"/>
+    <rect x="770" y="188" width="60" height="168" rx="8" transform="rotate(278 800 430)"/>
+  </g>
+  <path d="M800 508 L800 690 L940 760" fill="none" stroke="#e8b896" stroke-width="16" stroke-linecap="round"/>
+  <circle cx="940" cy="760" r="22" fill="#c9895c"/>
+  <text x="80" y="820" fill="#c9895c" font-family="Arial, Helvetica, sans-serif" font-size="28" letter-spacing="8">POWER TROWEL</text>
+</svg>

@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-label="Texas fresno photo plate">
+  <rect width="1600" height="900" fill="#0a0a0a"/>
+  <rect x="36" y="36" width="1528" height="828" fill="none" stroke="#c9895c" stroke-opacity="0.22" stroke-width="2"/>
+  <path d="M220 700 L1180 210" fill="none" stroke="#e8b896" stroke-width="18" stroke-linecap="round"/>
+  <rect x="1120" y="150" width="340" height="70" rx="10" transform="rotate(-22 1290 185)" fill="#c9895c"/>
+  <rect x="1140" y="162" width="300" height="18" rx="4" transform="rotate(-22 1290 171)" fill="#f4e6d4" opacity="0.35"/>
+  <circle cx="220" cy="700" r="20" fill="#c9895c"/>
+  <text x="80" y="820" fill="#c9895c" font-family="Arial, Helvetica, sans-serif" font-size="28" letter-spacing="8">TEXAS FRESNO</text>
+</svg>

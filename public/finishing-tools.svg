@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-label="Concrete finishing tools photo plate">
+  <rect width="1600" height="900" fill="#0a0a0a"/>
+  <rect x="36" y="36" width="1528" height="828" fill="none" stroke="#c9895c" stroke-opacity="0.22" stroke-width="2"/>
+  <rect x="220" y="430" width="720" height="70" rx="12" fill="#c9895c"/>
+  <path d="M240 430 L300 250 L400 250 L460 430" fill="#1a120e" stroke="#e8b896" stroke-width="8"/>
+  <rect x="1080" y="240" width="220" height="28" rx="8" fill="#e8b896"/>
+  <path d="M1190 268 L1190 520" stroke="#c9895c" stroke-width="14" stroke-linecap="round"/>
+  <path d="M1120 520 L1260 560 L1260 620 L1120 580 Z" fill="#c9895c"/>
+  <rect x="980" y="620" width="280" height="36" rx="8" fill="#e8b896"/>
+  <text x="80" y="820" fill="#c9895c" font-family="Arial, Helvetica, sans-serif" font-size="28" letter-spacing="8">FINISHING TOOLS</text>
+</svg>
