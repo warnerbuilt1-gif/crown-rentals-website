@@ -9,7 +9,8 @@ import ServiceMap from '../components/ServiceMap'
 import TrustPanel from '../components/TrustPanel'
 import Reveal from '../components/Reveal'
 import JobSelector from '../components/JobSelector'
-import { ATTACHMENTS, FLEET, HOME_FAQS, SITE_CITY, SITE_CONSTRUCTION_URL, SITE_HOURS_SHORT, SITE_NAME, SITE_OWNER, SITE_SERVICE_AREA, SITE_SLOGAN, SITE_TAGLINE } from '../config/site'
+import CategoryStrip from '../components/CategoryStrip'
+import { ATTACHMENTS, FLEET, HOME_FAQS, SITE_CITY, SITE_CONSTRUCTION_URL, SITE_HOURS_SHORT, SITE_NAME, SITE_OWNER, SITE_SERVICE_AREA, SITE_SLOGAN, SITE_TAGLINE, machineInCategory } from '../config/site'
 
 export default function Home() {
   return (
@@ -18,7 +19,7 @@ export default function Home() {
         <title>{`Equipment Rental in Anaconda, MT | ${SITE_NAME}`}</title>
         <meta
           name="description"
-          content={`${SITE_SLOGAN} ${SITE_TAGLINE} Rent a skid steer, 35-foot Z-boom, compaction, and concrete finishing tools in Anaconda, MT.`}
+          content={`${SITE_SLOGAN} ${SITE_TAGLINE} Rent a Cat 242D3, Genie Z-34/22, compaction, and concrete finishing tools in Anaconda, MT.`}
         />
       </Head>
       <Header />
@@ -72,11 +73,11 @@ export default function Home() {
                 <p className="kicker">On the lot</p>
                 <h2 id="fleet-heading" className="section-title">The fleet</h2>
                 <p className="section-intro">
-                  Iron, attachments, and concrete tools. Search, filter, then reserve — Neal confirms the window before
-                  anything is locked.
+                  Tap a category. The machines in that group are one more tap away, with the day rate and deposit on the card.
                 </p>
               </div>
             </Reveal>
+            <CategoryStrip />
             <EquipmentBrowse headingId="fleet-heading" />
           </div>
         </section>
@@ -96,10 +97,11 @@ export default function Home() {
               <div className="attach-panel">
                 <div className="attach-photo">
                   <Image
-                    src="/skid-bucket-job.jpg"
-                    alt="Compact track loader with bucket attachment on gravel"
-                    width={1600}
-                    height={900}
+                    src="/skid-steer-attachments.jpg"
+                    alt="Skid steer bucket, forks, grapple, auger, trencher, and breaker"
+                    width={1400}
+                    height={933}
+                    sizes="(max-width: 800px) 100vw, 50vw"
                   />
                 </div>
                 <div>
@@ -127,14 +129,14 @@ export default function Home() {
                 <p className="kicker">Slab work</p>
                 <h2 id="concrete-heading" className="section-title">Concrete tools</h2>
                 <p className="section-intro">
-                  Power trowel, Texas fresno, knee boards, finishing tools, and a concrete saw. Kit the pour, then cut
+                  Power trowel, Texas fresno with a bull float, knee boards, finishing tools, and a concrete saw. Kit the pour, then cut
                   the joints.
                 </p>
               </div>
             </Reveal>
             <Reveal delay={80}>
               <div className="attach-grid attach-grid-full">
-                {FLEET.filter((item) => item.category === 'concrete').map((item) => (
+                {FLEET.filter((item) => machineInCategory(item.groups, 'concrete')).map((item) => (
                   <Link href={`/book/?item=${item.slug}`} className="attach-chip" key={item.slug}>
                     <strong>{item.name}</strong>
                     <span>{item.summary}</span>

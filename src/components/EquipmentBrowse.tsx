@@ -1,24 +1,37 @@
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
-import { FLEET, FILTER_TAGS, SITE_WEEKLY_DAYS, formatUsd } from '../config/site'
+import { useRouter } from 'next/router'
+import { FLEET, FILTER_TAGS, SITE_PHONE_TEL_URI, categoryFromLocation, machineInCategory } from '../config/site'
 import { availabilityLabel } from '../lib/booking'
-import { useReserve } from './ReserveContext'
 import Reveal from './Reveal'
+import SpecList from './SpecList'
+import PriceBlock from './PriceBlock'
 
 type FilterId = (typeof FILTER_TAGS)[number]['id']
 type ViewMode = 'grid' | 'list'
 
 export default function EquipmentBrowse({ headingId }: { headingId?: string }) {
-  const { openReserve } = useReserve()
+  const router = useRouter()
   const [query, setQuery] = useState('')
   const [tag, setTag] = useState<FilterId>('all')
   const [view, setView] = useState<ViewMode>('grid')
 
+  useEffect(() => {
+    setTag(categoryFromLocation(router.query.category))
+  }, [router.asPath, router.query.category])
+
+  const selectTag = (next: FilterId) => {
+    setTag(next)
+    if (!router.pathname.startsWith('/equipment')) return
+    const query = next === 'all' ? {} : { category: next }
+    router.replace({ pathname: '/equipment', query }, undefined, { shallow: true, scroll: false })
+  }
+
   const machines = useMemo(() => {
     const needle = query.trim().toLowerCase()
     return FLEET.filter((item) => {
-      const matchesTag = tag === 'all' || item.category === tag
+      const matchesTag = machineInCategory(item.groups, tag)
       const haystack = `${item.name} ${item.kicker} ${item.summary} ${item.details}`.toLowerCase()
       const matchesQuery = !needle || haystack.includes(needle)
       return matchesTag && matchesQuery
@@ -43,7 +56,7 @@ export default function EquipmentBrowse({ headingId }: { headingId?: string }) {
               key={item.id}
               type="button"
               className={`filter-tag${tag === item.id ? ' is-active' : ''}`}
-              onClick={() => setTag(item.id)}
+              onClick={() => selectTag(item.id)}
             >
               {item.label}
             </button>
@@ -64,16 +77,16 @@ export default function EquipmentBrowse({ headingId }: { headingId?: string }) {
       ) : (
         <div className={`equip-grid is-${view}`} aria-labelledby={headingId}>
           {machines.map((item, index) => (
-            <Reveal key={item.slug} delay={index * 80}>
+            <Reveal key={item.slug} delay={Math.min(index, 3) * 40}>
               <article className="equip-card">
-                <div className="equip-card-media">
+                <div className={`equip-card-media${item.fit === 'contain' ? ' is-contain' : ''}`}>
                   <div className="equip-skeleton-fill" aria-hidden="true" />
                   <Image
                     src={item.image}
                     alt={item.alt}
                     fill
-                    sizes="(max-width: 800px) 100vw, 50vw"
-                    style={{ objectFit: 'cover', objectPosition: item.imagePosition }}
+                    sizes="(max-width: 800px) 100vw, (max-width: 1100px) 50vw, 33vw"
+                    style={{ objectFit: item.fit, objectPosition: item.imagePosition }}
                   />
                   <div className="equip-badges">
                     {item.featured ? <span className="badge badge-featured">Featured</span> : null}
@@ -83,18 +96,20 @@ export default function EquipmentBrowse({ headingId }: { headingId?: string }) {
                 <div className="equip-card-copy">
                   <p className="kicker">{item.kicker}</p>
                   <h3>{item.name}</h3>
-                  <p className="equip-price">
-                    <strong>{formatUsd(item.dailyRate)}</strong>
-                    <span> / day · {formatUsd(item.dailyRate * SITE_WEEKLY_DAYS)} / week</span>
-                  </p>
-                  <p>{item.summary}</p>
-                  <div className="equip-card-actions">
-                    <button type="button" className="btn-primary" onClick={() => openReserve(item.slug)}>
-                      Reserve
-                    </button>
-                    <Link className="btn-secondary" href={`/book/?item=${item.slug}`}>
-                      Book dates
+                  <PriceBlock dailyRate={item.dailyRate} deposit={item.deposit} compact />
+                  <SpecList specs={item.specs} limit={4} />
+                  {item.specs.length > 4 ? (
+                    <Link className="spec-more" href={`/equipment/#${item.slug}`}>
+                      Full specifications
                     </Link>
+                  ) : null}
+                  <div className="equip-card-actions">
+                    <Link className="btn-primary" href={`/book/?item=${item.slug}`}>
+                      Check availability
+                    </Link>
+                    <a className="btn-secondary" href={SITE_PHONE_TEL_URI}>
+                      Call to reserve
+                    </a>
                   </div>
                 </div>
               </article>

@@ -1,4 +1,4 @@
-import { FLEET, SITE_DELIVERY_FEE, SITE_TAX_RATE, SITE_WEEKLY_DAYS, formatUsd } from '../config/site'
+import { FLEET, SITE_DELIVERY_FEE, SITE_WEEKLY_DAYS, formatUsd } from '../config/site'
 
 export type FleetItem = (typeof FLEET)[number]
 
@@ -67,7 +67,6 @@ export type QuoteResult = {
   days: number
   rental: number
   deliveryFee: number
-  tax: number
   deposit: number
   due: number
   lines: { label: string; value: string }[]
@@ -82,8 +81,7 @@ export function buildQuote(items: FleetItem[], days: number, delivery: boolean):
   }, 0)
   const deposit = items.reduce((sum, item) => sum + item.deposit, 0)
   const deliveryFee = delivery ? SITE_DELIVERY_FEE : 0
-  const tax = (rental + deliveryFee) * SITE_TAX_RATE
-  const due = rental + deliveryFee + tax
+  const due = rental + deliveryFee
   const names = items.map((item) => item.name).join(', ') || 'Choose equipment'
   const lines = [
     { label: 'Equipment', value: names },
@@ -91,12 +89,11 @@ export function buildQuote(items: FleetItem[], days: number, delivery: boolean):
     weeks > 0 ? { label: 'Week billing', value: `${weeks} × 6-day week` } : null,
     { label: 'Rental', value: formatUsd(rental) },
     { label: 'Delivery', value: delivery ? formatUsd(deliveryFee) : 'Yard pickup' },
-    { label: 'Tax (7%)', value: formatUsd(tax, true) },
     { label: 'Deposit hold', value: formatUsd(deposit) },
-    { label: 'Est. due', value: formatUsd(due, true) },
+    { label: 'Est. due', value: formatUsd(due) },
   ].filter(Boolean) as { label: string; value: string }[]
 
-  return { days, rental, deliveryFee, tax, deposit, due, lines }
+  return { days, rental, deliveryFee, deposit, due, lines }
 }
 
 export function monthMatrix(year: number, month: number) {

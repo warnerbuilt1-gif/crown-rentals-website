@@ -43,15 +43,16 @@ export default function BookingBoard({ initialSlug = '', compact = false }: Book
       setSlugs([initialSlug])
       return
     }
-    const jobId = typeof router.query.job === 'string' ? router.query.job : ''
-    const item = typeof router.query.item === 'string' ? router.query.item : ''
+    const params = new URLSearchParams(window.location.search)
+    const jobId = (typeof router.query.job === 'string' ? router.query.job : '') || params.get('job') || ''
+    const item = (typeof router.query.item === 'string' ? router.query.item : '') || params.get('item') || ''
     const guide = JOB_GUIDES.find((entry) => entry.id === jobId)
     if (guide) {
       setSlugs([...guide.slugs])
       return
     }
     if (item && FLEET.some((entry) => entry.slug === item)) setSlugs([item])
-  }, [initialSlug, router.query.job, router.query.item])
+  }, [initialSlug, router.asPath, router.query.job, router.query.item])
 
   const selected = useMemo(() => FLEET.filter((item) => slugs.includes(item.slug)), [slugs])
 

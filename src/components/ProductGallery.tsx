@@ -5,9 +5,10 @@ type ProductGalleryProps = {
   images: readonly string[]
   alt: string
   position?: string
+  fit?: 'cover' | 'contain'
 }
 
-export default function ProductGallery({ images, alt, position = 'center center' }: ProductGalleryProps) {
+export default function ProductGallery({ images, alt, position = 'center center', fit = 'cover' }: ProductGalleryProps) {
   const shots = images.length > 0 ? images : []
   const [index, setIndex] = useState(0)
   const drag = useRef<{ x: number; start: number } | null>(null)
@@ -38,7 +39,7 @@ export default function ProductGallery({ images, alt, position = 'center center'
   return (
     <div className="gallery">
       <div
-        className={`gallery-stage${canOrbit ? ' is-orbit' : ''}`}
+        className={`gallery-stage${canOrbit ? ' is-orbit' : ''}${fit === 'contain' ? ' is-contain' : ''}`}
         onPointerDown={onPointerDown}
         onPointerMove={onPointerMove}
         onPointerUp={onPointerUp}
@@ -50,7 +51,7 @@ export default function ProductGallery({ images, alt, position = 'center center'
           fill
           draggable={false}
           sizes="(max-width: 860px) 100vw, 50vw"
-          style={{ objectFit: 'cover', objectPosition: position }}
+          style={{ objectFit: fit, objectPosition: position }}
         />
         {canOrbit ? <span className="gallery-360">360 · swipe to rotate</span> : null}
         {canOrbit ? (

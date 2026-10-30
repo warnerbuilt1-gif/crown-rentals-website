@@ -1,16 +1,31 @@
 import '../styles/globals.css'
 import type { AppProps } from 'next/app'
 import Head from 'next/head'
+import { DM_Sans, Oswald } from 'next/font/google'
 import MobileCallBar from '../components/MobileCallBar'
 import ReserveModal from '../components/ReserveModal'
 import { ReserveProvider } from '../components/ReserveContext'
 import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from '../config/site'
 
-const shareImage = `${SITE_URL}/skid-steer-job.jpg`
+const dmSans = DM_Sans({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-dm',
+})
+
+const oswald = Oswald({
+  subsets: ['latin'],
+  weight: ['500', '600', '700'],
+  display: 'swap',
+  variable: '--font-oswald',
+})
+
+const shareImage = `${SITE_URL}/skid-steer-cat.jpg`
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <ReserveProvider>
+      <div className={`site-shell ${dmSans.variable} ${oswald.variable}`}>
       <a href="#main" className="skip-link">Skip to content</a>
       <Head>
         <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
@@ -59,6 +74,7 @@ export default function App({ Component, pageProps }: AppProps) {
       <Component {...pageProps} />
       <MobileCallBar />
       <ReserveModal />
+      </div>
     </ReserveProvider>
   )
 }

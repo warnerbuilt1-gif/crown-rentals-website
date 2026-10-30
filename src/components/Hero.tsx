@@ -10,10 +10,11 @@ export default function Hero() {
       <p className="hero-locale">{SITE_CITY}, Montana · Run by {SITE_OWNER}</p>
       <div className="hero-lockup">
         <Image
-          src="/logo-hero.jpg"
-          alt="Crown Rentals — crown mark with skid steer and 35-foot Z-boom"
-          width={1600}
-          height={1600}
+          src="/logo-hero.png"
+          alt="Crown Rentals — crown mark with skid steer and Z-boom"
+          width={720}
+          height={720}
+          sizes="(max-width: 700px) 78vw, 420px"
           priority
           className="hero-logo"
         />
@@ -22,7 +23,7 @@ export default function Hero() {
         {SITE_SLOGAN}
       </h1>
       <p className="hero-lead">
-        {SITE_TAGLINE} Rent a skid steer with attachments, a 35-foot Z-boom, compaction, and concrete finishing tools
+        {SITE_TAGLINE} Rent a Cat 242D3 with attachments, a Genie Z-34/22, compaction, and concrete finishing tools
         from Neal&apos;s yard in {SITE_CITY}.
       </p>
       <div className="hero-actions">

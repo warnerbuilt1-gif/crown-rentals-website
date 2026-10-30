@@ -3,6 +3,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { FLEET } from '../config/site'
 import { useReserve } from './ReserveContext'
+import SpecList from './SpecList'
 
 export default function FleetTabs() {
   const [activeSlug, setActiveSlug] = useState<(typeof FLEET)[number]['slug']>(FLEET[0].slug)
@@ -39,13 +40,13 @@ export default function FleetTabs() {
             alt={machine.alt}
             fill
             sizes="(max-width: 900px) 100vw, 62vw"
-            style={{ objectFit: 'cover', objectPosition: machine.imagePosition }}
+            style={{ objectFit: machine.fit, objectPosition: machine.imagePosition }}
           />
         </div>
         <div className="fleet-stage-copy">
           <p className="kicker">{machine.kicker}</p>
           <h3>{machine.name}</h3>
-          <p>{machine.details}</p>
+          <SpecList specs={machine.specs} />
           <div className="hero-actions">
             <button type="button" className="btn-primary" onClick={() => openReserve(machine.slug)}>
               Reserve

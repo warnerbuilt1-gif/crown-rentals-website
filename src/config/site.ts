@@ -5,7 +5,7 @@ export const SITE_TAGLINE = 'Premium iron. Local yard.'
 export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://crownrentalsmt.com'
 export const SITE_CONSTRUCTION_URL = 'https://crownconstructionmt.com'
 export const SITE_DESCRIPTION =
-  'Crown Rentals in Anaconda, MT — run by Neal. Crown the job. Skid steer, 35-foot Z-boom, trench roller, plate wacker, and concrete finishing tools.'
+  'Crown Rentals in Anaconda, MT — run by Neal. Cat 242D3, Genie Z-34/22, MQ RAMMAX trench roller, Third Coast plate and trowel, and concrete finishing tools.'
 export const SITE_PHONE_DISPLAY = '406-595-4472'
 export const SITE_PHONE_TEL_URI = 'tel:4065954472'
 export const SITE_SMS_URI = 'sms:+14065954472'
@@ -15,7 +15,6 @@ export const SITE_REGION = 'Southwest Montana'
 export const SITE_ADDRESS = '218 E Commercial Ave, Anaconda, MT 59711'
 export const SITE_HOURS = 'Mon–Sat 7:00 a.m.–5:30 p.m. · Sunday by appointment'
 export const SITE_HOURS_SHORT = 'Mon–Sat 7–5:30'
-export const SITE_TAX_RATE = 0.07
 export const SITE_DELIVERY_FEE = 95
 export const SITE_WEEKLY_DAYS = 6
 export const SITE_PICKUP_WINDOWS = ['Morning 7:00–11:00', 'Afternoon 12:00–5:30'] as const
@@ -25,13 +24,36 @@ export const SITE_MAP_EMBED =
   'https://www.openstreetmap.org/export/embed.html?bbox=-113.05%2C46.08%2C-112.85%2C46.18&layer=mapnik&marker=46.1288%2C-112.9428'
 export const SITE_MAP_LINK = 'https://www.openstreetmap.org/#map=13/46.1285/-112.9519'
 
-export const FILTER_TAGS = [
-  { id: 'all', label: 'All' },
-  { id: 'loader', label: 'Loader' },
-  { id: 'reach', label: 'Reach' },
-  { id: 'compaction', label: 'Compaction' },
-  { id: 'concrete', label: 'Concrete' },
+export const EQUIPMENT_CATEGORIES = [
+  { id: 'all', label: 'All', blurb: 'Everything currently on the lot.' },
+  { id: 'earthmoving', label: 'Earthmoving', blurb: 'Skid steer, trench roller, and plate compactor.' },
+  { id: 'lifts', label: 'Lifts', blurb: 'Genie boom for siding, paint, and overhead work.' },
+  { id: 'landscaping', label: 'Landscaping', blurb: 'Skid steer and plate, with rake, cutter, and sweeper.' },
+  { id: 'concrete', label: 'Concrete', blurb: 'Power trowel, saw, and the finish kit.' },
+  { id: 'hand-tools', label: 'Hand tools', blurb: 'Texas fresno with a bull float, knee boards, and hand floats.' },
 ] as const
+
+export const FILTER_TAGS = EQUIPMENT_CATEGORIES
+
+export function machineInCategory(groups: readonly string[], category: string) {
+  return category === 'all' || groups.includes(category)
+}
+
+export type EquipmentCategoryId = (typeof EQUIPMENT_CATEGORIES)[number]['id']
+
+export function categoryFromQuery(value: string | string[] | null | undefined): EquipmentCategoryId {
+  const id = Array.isArray(value) ? value[0] : value
+  if (id && EQUIPMENT_CATEGORIES.some((item) => item.id === id)) return id as EquipmentCategoryId
+  return 'all'
+}
+
+export function categoryFromLocation(queryValue?: string | string[]): EquipmentCategoryId {
+  if (typeof window !== 'undefined') {
+    const fromUrl = new URLSearchParams(window.location.search).get('category')
+    if (fromUrl) return categoryFromQuery(fromUrl)
+  }
+  return categoryFromQuery(queryValue)
+}
 
 export const REVIEWS = [
   {
@@ -39,28 +61,28 @@ export const REVIEWS = [
     place: 'Butte',
     machine: 'Skid steer + grapple',
     quote: 'Neal kitted the attachments before I left the yard. Tight lot, clean machine, no runaround.',
-    photo: '/skid-bucket-job.jpg',
+    photo: '/skid-steer-cat.jpg',
   },
   {
     name: 'Lena P.',
     place: 'Deer Lodge',
     machine: '35-foot Z-boom',
     quote: 'Booked the boom for a siding day. Pickup was simple and the machine was ready when I rolled in.',
-    photo: '/z-boom-job.jpg',
+    photo: '/z-boom-genie.jpg',
   },
   {
     name: 'Cole R.',
     place: 'Philipsburg',
     machine: 'Trench roller',
     quote: 'Had a utility cut that a plate would not finish. The trench roller packed it and we were gone.',
-    photo: '/trench-roller.jpg',
+    photo: '/rammax-1575.png',
   },
   {
     name: 'Dana S.',
     place: 'Anaconda',
     machine: 'Power trowel + fresno',
     quote: 'Poured a garage slab and left with the trowel, Texas fresno, and knee boards. Finish came out clean.',
-    photo: '/plate-wacker.jpg',
+    photo: '/power-trowel.jpg',
   },
 ] as const
 
@@ -90,167 +112,237 @@ export const YARD_NOTES = [
   },
   {
     job: 'Trench and pad work',
-    note: 'Trench roller for the cut. Plate wacker for the open pad. Say which you have and we send the right one.',
+    note: 'RAMMAX trench roller for the cut. Third Coast plate for the open pad. Say which you have and we send the right one.',
   },
   {
     job: 'Slab finish',
-    note: 'Power trowel, Texas fresno, knee boards, finishing tools, and a concrete saw — kit the pour, then cut the joints.',
+    note: 'Power trowel, Texas fresno with a bull float, knee boards, finishing tools, and a concrete saw — kit the pour, then cut the joints.',
   },
 ] as const
 
 export const FLEET = [
   {
     slug: 'skid-steer',
-    name: 'Skid Steer',
+    name: 'Cat 242D3',
     kicker: 'Loader',
     category: 'loader',
+    groups: ['earthmoving', 'landscaping'],
     featured: true,
     status: 'Available now',
     dailyRate: 385,
     deposit: 500,
-    summary: 'The workhorse of the yard. Bucket on, then swap to whatever the job needs.',
+    summary: 'Caterpillar 242D3 · 74.3 hp · 2,200 lb rated capacity · 7,138 lb',
     details:
-      'Our skid steer is built for tight sites, driveway work, landscaping, snow, and material handling. Rent the machine, then pair it with the attachment that actually finishes the day.',
-    image: '/skid-steer-job.jpg',
-    gallery: ['/skid-steer-job.jpg', '/skid-steer.jpg', '/skid-bucket-job.jpg'],
-    imagePosition: 'center 60%',
-    alt: 'Yellow skid steer loader on the Crown Rentals lot',
+      'Caterpillar 242D3. Engine Cat C3.3B DIT (turbo). Gross power 74.3 hp. Rated operating capacity 2,200 lb. Tipping load 4,400 lb. Operating weight 7,138 lb. Width over tires 66 in. Height to top of cab 83.1 in. Standard hydraulic flow 20 gpm at 3,335 psi.',
+    specs: [
+      { label: 'Dimensions', value: '66 in wide × 83.1 in cab height' },
+      { label: 'Weight', value: '7,138 lb operating' },
+      { label: 'Power', value: '74.3 hp · Cat C3.3B DIT turbo' },
+      { label: 'Rated capacity', value: '2,200 lb · 4,400 lb tip' },
+      { label: 'Hydraulics', value: '20 gpm at 3,335 psi' },
+      { label: 'Towing', value: 'Not a tow vehicle. Haul it on a trailer, or add delivery.' },
+    ],
+    image: '/skid-steer-cat.jpg',
+    gallery: ['/skid-steer-cat.jpg'],
+    imagePosition: 'center center',
+    fit: 'contain',
+    alt: 'Caterpillar 242D3 skid steer loader',
   },
   {
     slug: 'z-boom',
-    name: '35-Foot Z-Boom',
+    name: 'Genie Z-34/22',
     kicker: 'Reach',
     category: 'reach',
+    groups: ['lifts'],
     featured: false,
     status: 'Available now',
     dailyRate: 425,
     deposit: 750,
-    summary: 'Articulating boom for eaves, siding, tree work, and anything you should not be standing on a ladder for.',
+    summary: 'Genie Z-34/22 · 40 ft 6 in working height · 22 ft 3 in reach · 500 lb platform',
     details:
-      'The 35-foot Z-boom gets you up and over obstacles with a compact footprint. Ideal for residential exteriors, light commercial access, and jobs where a straight stick will not thread the site.',
-    image: '/z-boom-job.jpg',
-    gallery: ['/z-boom-job.jpg', '/z-boom-job-alt.jpg', '/z-boom.jpg'],
-    imagePosition: 'center 55%',
-    alt: 'Articulating Z-boom lift available to rent from Crown Rentals',
+      'Genie Z-34/22. Working height 40 ft 6 in. Platform height 34 ft 6 in. Horizontal reach 22 ft 3 in. Platform capacity 500 lb. Power 48V DC.',
+    specs: [
+      { label: 'Dimensions', value: '40 ft 6 in working height · 22 ft 3 in reach' },
+      { label: 'Platform', value: '34 ft 6 in height · 500 lb capacity' },
+      { label: 'Power', value: '48V DC' },
+      { label: 'Towing', value: 'Trailer it, or ask Neal about delivery.' },
+    ],
+    image: '/z-boom-genie.jpg',
+    gallery: ['/z-boom-genie.jpg'],
+    imagePosition: 'center center',
+    fit: 'contain',
+    alt: 'Genie Z-34/22 articulating boom lift',
   },
   {
     slug: 'trench-roller',
-    name: 'Trench Roller',
+    name: 'MQ RAMMAX 1575',
     kicker: 'Compaction',
     category: 'compaction',
+    groups: ['earthmoving'],
     featured: false,
     status: 'Available now',
     dailyRate: 195,
     deposit: 400,
-    summary: 'Padfoot trench roller for utility cuts, backfill, and spots a plate cannot reach.',
+    summary: 'Multiquip RAMMAX RX1575 · remote articulated trench roller · 8,430 / 16,860 lbf · Yanmar diesel',
     details:
-      'The trench roller packs a narrow cut with padfoot drums — utilities, footings, and tight backfill. Pair it with the plate wacker when the job has both a trench and an open pad.',
-    image: '/trench-roller.jpg',
-    gallery: ['/trench-roller.jpg'],
-    imagePosition: 'center 55%',
-    alt: 'Wacker trench roller compacting soil on a jobsite',
+      'Multiquip MQ RAMMAX RX1575. Remote-controlled articulated trench roller. Padded drums in 24 in or 33 in. Centrifugal force 8,430 lbf low and 16,860 lbf high. Yanmar diesel, about 20 hp. Infrared remote.',
+    specs: [
+      { label: 'Dimensions', value: '78 in long × 52 in high · 24 or 33 in drums' },
+      { label: 'Weight', value: '3,087 lb with 24 in drums · 3,197 lb with 33 in' },
+      { label: 'Power', value: 'Yanmar diesel · 20.4 hp' },
+      { label: 'Compaction', value: '8,430 lbf low · 16,860 lbf high' },
+      { label: 'Control', value: 'Infrared remote' },
+    ],
+    image: '/rammax-1575.png',
+    fit: 'cover',
+    gallery: ['/rammax-1575.png'],
+    imagePosition: 'center center',
+    alt: 'Yellow MQ RAMMAX 1575 remote trench roller',
   },
   {
     slug: 'plate-wacker',
-    name: 'Plate Wacker',
+    name: 'Third Coast SP210',
     kicker: 'Compaction',
     category: 'compaction',
+    groups: ['earthmoving', 'landscaping'],
     featured: false,
     status: 'Available now',
     dailyRate: 85,
     deposit: 200,
-    summary: 'Walk-behind plate for driveways, pads, pavers, and finish-grade compaction.',
+    summary: 'Third Coast SP210 plate · Honda GX160 · 3,372 lbf · 215 lb',
     details:
-      'The plate wacker is the fast way to lock in base and finish grade. Pair it with the trench roller when a job has both open pads and a narrow cut.',
+      'Third Coast SP210 single-direction plate compactor. Honda GX160. Centrifugal force 3,372 lbf. Plate 19.7 × 20.9 in. Vibration 6,000 vpm. Operating weight 215 lb.',
+    specs: [
+      { label: 'Dimensions', value: '19.7 × 20.9 in plate' },
+      { label: 'Weight', value: '215 lb operating' },
+      { label: 'Power', value: 'Honda GX160' },
+      { label: 'Compaction', value: '3,372 lbf · 6,000 vpm' },
+    ],
     image: '/plate-wacker.jpg',
+    fit: 'cover',
     gallery: ['/plate-wacker.jpg'],
     imagePosition: 'center 55%',
-    alt: 'Plate compactor wacker on gravel at a jobsite',
+    alt: 'Yellow plate compactor on gravel',
   },
   {
     slug: 'power-trowel',
-    name: 'Power Trowel',
+    name: 'Third Coast CT36',
     kicker: 'Concrete',
     category: 'concrete',
+    groups: ['concrete'],
     featured: false,
     status: 'Available now',
     dailyRate: 145,
     deposit: 250,
-    summary: 'Walk-behind power trowel for garage slabs, pads, and commercial finish work.',
+    summary: 'Third Coast CT36 walk-behind trowel · Honda GX160 · 36 in · 4 blades',
     details:
-      'The walk-behind power trowel burns in a tight finish after the float pass. Pair it with the Texas fresno and knee boards so the slab is worked from wet to steel without a second trip.',
-    image: '/power-trowel.svg',
-    gallery: ['/power-trowel.svg'],
+      'Third Coast CT36 walk-behind power trowel. Honda GX160. 36 in working diameter. 4 blades. Rotor speed 80–150 rpm. Operating weight about 198 lb.',
+    specs: [
+      { label: 'Dimensions', value: '36 in working diameter · 4 blades' },
+      { label: 'Weight', value: '198 lb operating' },
+      { label: 'Power', value: 'Honda GX160 · 4.8 hp' },
+      { label: 'Rotor speed', value: '80–150 rpm' },
+    ],
+    image: '/power-trowel.jpg',
+    gallery: ['/power-trowel.jpg'],
     imagePosition: 'center center',
-    alt: 'Walk-behind power trowel available to rent from Crown Rentals',
+    fit: 'contain',
+    alt: '36-inch Third Coast walk-behind power trowel',
   },
   {
     slug: 'concrete-saw',
-    name: 'Concrete Saw',
+    name: 'Husqvarna FS 400',
     kicker: 'Concrete',
     category: 'concrete',
+    groups: ['concrete'],
     featured: false,
     status: 'Available now',
     dailyRate: 165,
     deposit: 300,
-    summary: 'Walk-behind concrete saw for control joints, cuts, and demo on slab and pavement.',
+    summary: 'Husqvarna FS 400 LV · Honda GX390 · 20 in blade · 7.5 in depth · 320 lb',
     details:
-      'The walk-behind concrete saw cuts control joints and opens pavement. Tell us the depth and we send the right blade. Same-day after a pour is common when the saw is on the lot.',
-    image: '/concrete-saw.svg',
-    gallery: ['/concrete-saw.svg'],
+      'Husqvarna FS 400 LV. Honda GX390, 11.7 hp. Maximum blade 20 in. Maximum cutting depth 7.5 in. Operating weight 320 lb.',
+    specs: [
+      { label: 'Dimensions', value: '20 in blade · 7.5 in max depth' },
+      { label: 'Weight', value: '320 lb operating' },
+      { label: 'Power', value: 'Honda GX390 · 11.7 hp' },
+    ],
+    image: '/concrete-saw.jpg',
+    gallery: ['/concrete-saw.jpg'],
     imagePosition: 'center center',
-    alt: 'Walk-behind concrete saw available to rent from Crown Rentals',
+    fit: 'contain',
+    alt: 'Walk-behind concrete floor saw',
   },
   {
     slug: 'texas-fresno',
-    name: 'Texas Fresno',
+    name: 'Texas Fresno & Bull Float',
     kicker: 'Concrete',
     category: 'concrete',
+    groups: ['concrete', 'hand-tools'],
     featured: false,
     status: 'Available now',
     dailyRate: 45,
     deposit: 100,
-    summary: 'Long-handle Texas fresno for large slabs after the bull float, before the trowel.',
-    details:
-      'The Texas fresno is the long-reach float for big pads and garage slabs. It closes the surface after the bull float and sets you up for the power trowel. Rent it with the finishing kit.',
-    image: '/texas-fresno.svg',
-    gallery: ['/texas-fresno.svg'],
+    summary: '48 in Texas fresno with a sectional handle, plus a bull float',
+    details: 'Long-handle Texas fresno, 48 in blade, sectional handle. A bull float goes out with it.',
+    specs: [
+      { label: 'Fresno', value: '48 in blade · long sectional handle' },
+      { label: 'Bull float', value: 'Included with the fresno' },
+      { label: 'Power', value: 'Hand tools' },
+    ],
+    image: '/texas-fresno.jpg',
+    gallery: ['/texas-fresno.jpg'],
     imagePosition: 'center center',
-    alt: 'Texas fresno concrete float available to rent from Crown Rentals',
+    fit: 'contain',
+    alt: 'Texas fresno and bull float for a concrete pour',
   },
   {
     slug: 'knee-boards',
     name: 'Knee Boards',
     kicker: 'Concrete',
     category: 'concrete',
+    groups: ['concrete', 'hand-tools'],
     featured: false,
     status: 'Available now',
     dailyRate: 25,
     deposit: 50,
-    summary: 'Finishers’ knee boards for hand work on wet slabs without digging in.',
-    details:
-      'Knee boards keep finishers on the slab for edges, around pipes, and the last pass. Rent them with the finishing tools and the power trowel so the whole pour is covered.',
-    image: '/knee-boards.svg',
-    gallery: ['/knee-boards.svg'],
+    summary: 'Pair of finisher knee boards · buckled pads',
+    details: 'Pair of concrete finisher knee boards with buckled knee pads.',
+    specs: [
+      { label: 'Set', value: 'Pair' },
+      { label: 'Dimensions', value: 'Rigid finishing boards' },
+      { label: 'Pads', value: 'Buckled knee pads' },
+      { label: 'Power', value: 'Hand tool' },
+    ],
+    image: '/knee-boards.jpg',
+    gallery: ['/knee-boards.jpg'],
     imagePosition: 'center center',
-    alt: 'Concrete finishing knee boards available to rent from Crown Rentals',
+    fit: 'contain',
+    alt: 'Pair of concrete finishing knee boards',
   },
   {
     slug: 'finishing-tools',
     name: 'Finishing Tools',
     kicker: 'Concrete',
     category: 'concrete',
+    groups: ['concrete', 'hand-tools'],
     featured: false,
     status: 'Available now',
     dailyRate: 55,
     deposit: 100,
-    summary: 'Bull float, mag, edgers, groovers, and hand tools kitted for a pour.',
-    details:
-      'The finishing kit is the hand work: bull float, magnesium float, edgers, groovers, and trowels. Kit it with the Texas fresno, knee boards, and power trowel for a full slab day.',
-    image: '/finishing-tools.svg',
-    gallery: ['/finishing-tools.svg'],
+    summary: 'Magnesium float, edger, groover, and two finishing trowels',
+    details: 'Magnesium hand float, edger, groover, and two finishing trowels. The bull float rents with the Texas fresno.',
+    specs: [
+      { label: 'Hand float', value: 'Magnesium' },
+      { label: 'Edger', value: 'Included' },
+      { label: 'Groover', value: 'Included' },
+      { label: 'Finishing trowels', value: 'Two' },
+    ],
+    image: '/finishing-tools.jpg',
+    gallery: ['/finishing-tools.jpg'],
     imagePosition: 'center center',
-    alt: 'Concrete finishing tools kit available to rent from Crown Rentals',
+    fit: 'contain',
+    alt: 'Concrete finishing tool kit',
   },
 ] as const
 
@@ -273,7 +365,7 @@ export const HOME_FAQS = [
   {
     question: 'What can I rent right now?',
     answer:
-      'The current fleet is the skid steer, a 35-foot Z-boom, a trench roller, a plate wacker, and concrete tools — power trowel, Texas fresno, knee boards, finishing tools, and a concrete saw. Call Neal to confirm what is on the lot for your dates.',
+      'The current fleet is the skid steer, a 35-foot Z-boom, an MQ RAMMAX trench roller, a Third Coast plate, and concrete tools — Third Coast trowel, Texas fresno with a bull float, knee boards, finishing tools, and a concrete saw. Call Neal to confirm what is on the lot for your dates.',
   },
   {
     question: 'Do attachments come with the skid steer?',
@@ -298,12 +390,12 @@ export const HOME_FAQS = [
   {
     question: 'What does a day rate include?',
     answer:
-      'Published day rates cover the machine. Attachments, delivery, overtime, and tax are quoted with the job. A card deposit holds the unit and releases after walk-in.',
+      'The price on each card is the rental rate. There is no sales tax. A week bills as 6 days. The deposit is a separate card hold. Delivery is extra. Attachments are reserved with the skid steer.',
   },
   {
     question: 'Do you rent concrete finishing tools?',
     answer:
-      'Yes. Power trowel, Texas fresno, knee boards, a finishing kit, and a walk-behind concrete saw. Kit the pour together so you are not missing an edger on a wet slab.',
+      'Yes. Third Coast power trowel, Texas fresno with a bull float, knee boards, a finishing kit, and a walk-behind concrete saw. Kit the pour together so you are not missing an edger on a wet slab.',
   },
   {
     question: 'Can I book dates on the site?',

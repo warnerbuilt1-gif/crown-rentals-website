@@ -37,7 +37,7 @@ export default function About() {
               </p>
               <p>
                 The fleet is tight on purpose. Skid steer with a deep attachment list. A 35-foot Z-boom for reach.
-                Compaction for the cut and the pad. Concrete tools for the pour — power trowel, Texas fresno, knee
+                Compaction for the cut and the pad. Concrete tools for the pour — power trowel, Texas fresno with a bull float, knee
                 boards, finishing kit, and a saw.
               </p>
               <p>
