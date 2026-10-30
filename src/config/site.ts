@@ -1,18 +1,18 @@
 export const SITE_NAME = 'Crown Rentals'
-export const SITE_OWNER = 'Neal'
+export const SITE_OWNER = 'Neal Warner'
 export const SITE_SLOGAN = 'Crown the job.'
 export const SITE_TAGLINE = 'Premium iron. Local yard.'
 export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://crownrentalsmt.com'
 export const SITE_CONSTRUCTION_URL = 'https://crownconstructionmt.com'
 export const SITE_DESCRIPTION =
-  'Crown Rentals in Anaconda, MT — run by Neal. Cat 242D3, Genie Z-34/22, MQ RAMMAX trench roller, Third Coast plate and trowel, and concrete finishing tools.'
-export const SITE_PHONE_DISPLAY = '406-595-4472'
+  'Neal Warner rents equipment at 2121 Garfield St, Anaconda, MT. Call (406) 595-4472.'
+export const SITE_PHONE_DISPLAY = '(406) 595-4472'
 export const SITE_PHONE_TEL_URI = 'tel:4065954472'
 export const SITE_SMS_URI = 'sms:+14065954472'
 export const SITE_EMAIL = 'crownconstrustion@gmail.com'
 export const SITE_CITY = 'Anaconda'
 export const SITE_REGION = 'Southwest Montana'
-export const SITE_ADDRESS = '218 E Commercial Ave, Anaconda, MT 59711'
+export const SITE_ADDRESS = '2121 Garfield St, Anaconda, MT 59711'
 export const SITE_HOURS = 'Mon–Sat 7:00 a.m.–5:30 p.m. · Sunday by appointment'
 export const SITE_HOURS_SHORT = 'Mon–Sat 7–5:30'
 export const SITE_DELIVERY_FEE = 95
@@ -21,8 +21,8 @@ export const SITE_PICKUP_WINDOWS = ['Morning 7:00–11:00', 'Afternoon 12:00–5
 export const SITE_SERVICE_AREA = 'Anaconda · Butte · Deer Lodge · Philipsburg · and nearby Southwest Montana'
 export const SITE_WHATSAPP_URI = 'https://wa.me/14065954472'
 export const SITE_MAP_EMBED =
-  'https://www.openstreetmap.org/export/embed.html?bbox=-113.05%2C46.08%2C-112.85%2C46.18&layer=mapnik&marker=46.1288%2C-112.9428'
-export const SITE_MAP_LINK = 'https://www.openstreetmap.org/#map=13/46.1285/-112.9519'
+  'https://www.openstreetmap.org/export/embed.html?bbox=-113.05%2C46.08%2C-112.85%2C46.18&layer=mapnik&marker=46.1378%2C-112.9882'
+export const SITE_MAP_LINK = 'https://www.google.com/maps/search/?api=1&query=2121+Garfield+St+Anaconda+MT+59711'
 
 export const EQUIPMENT_CATEGORIES = [
   { id: 'all', label: 'All', blurb: 'Everything currently on the lot.' },
@@ -458,4 +458,100 @@ export function formatUsd(amount: number, cents = false) {
     minimumFractionDigits: cents ? 2 : 0,
     maximumFractionDigits: cents ? 2 : 0,
   }).format(amount)
+}
+
+export const SITE_GEO = { latitude: 46.137846, longitude: -112.988212 }
+
+export const SERVICE_AREAS = [
+  {
+    slug: 'anaconda-mt',
+    path: '/equipment-rental-anaconda-mt/',
+    city: 'Anaconda',
+    lead: 'The yard is at 2121 Garfield St in Anaconda. Pickup is free, and same-day is often possible when the machine is on the lot.',
+  },
+  {
+    slug: 'butte-mt',
+    path: '/equipment-rental-butte-mt/',
+    city: 'Butte',
+    lead: 'Crown Rentals delivers from the Anaconda yard to Butte. Skid steer, boom, trench roller, plate, and concrete tools.',
+  },
+  {
+    slug: 'deer-lodge-mt',
+    path: '/equipment-rental-deer-lodge-mt/',
+    city: 'Deer Lodge',
+    lead: 'Deer Lodge jobs are served from Anaconda. Tell Neal the address and he will quote delivery with the machine.',
+  },
+  {
+    slug: 'philipsburg-mt',
+    path: '/equipment-rental-philipsburg-mt/',
+    city: 'Philipsburg',
+    lead: 'Philipsburg and the surrounding valley are on the delivery route. Reserve the iron, then Neal confirms the window.',
+  },
+] as const
+
+export function canonicalUrl(path: string) {
+  if (!path || path === '/') return `${SITE_URL}/`
+  const withSlash = path.endsWith('/') ? path : `${path}/`
+  return `${SITE_URL}${withSlash.startsWith('/') ? withSlash : `/${withSlash}`}`
+}
+
+export function rentalJsonLd() {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'EquipmentRental',
+    name: SITE_NAME,
+    url: `${SITE_URL}/`,
+    telephone: '+1-406-595-4472',
+    email: SITE_EMAIL,
+    image: `${SITE_URL}/skid-steer-cat.jpg`,
+    priceRange: '$$',
+    address: {
+      '@type': 'PostalAddress',
+      streetAddress: '2121 Garfield St',
+      addressLocality: 'Anaconda',
+      addressRegion: 'MT',
+      postalCode: '59711',
+      addressCountry: 'US',
+    },
+    geo: {
+      '@type': 'GeoCoordinates',
+      latitude: SITE_GEO.latitude,
+      longitude: SITE_GEO.longitude,
+    },
+    areaServed: [
+      ...SERVICE_AREAS.map((area) => ({ '@type': 'City', name: `${area.city}, MT` })),
+      { '@type': 'AdministrativeArea', name: 'Georgetown Lake, MT' },
+    ],
+    openingHoursSpecification: [
+      {
+        '@type': 'OpeningHoursSpecification',
+        dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+        opens: '07:00',
+        closes: '17:30',
+      },
+    ],
+    hasOfferCatalog: {
+      '@type': 'OfferCatalog',
+      name: 'Equipment for rent',
+      itemListElement: FLEET.map((item) => ({
+        '@type': 'Offer',
+        url: `${SITE_URL}/equipment/#${item.slug}`,
+        availability: 'https://schema.org/InStock',
+        priceCurrency: 'USD',
+        price: item.dailyRate,
+        priceSpecification: {
+          '@type': 'UnitPriceSpecification',
+          price: item.dailyRate,
+          priceCurrency: 'USD',
+          unitText: 'DAY',
+        },
+        itemOffered: {
+          '@type': 'Product',
+          name: item.name,
+          description: item.summary,
+          image: `${SITE_URL}${item.image}`,
+        },
+      })),
+    },
+  }
 }

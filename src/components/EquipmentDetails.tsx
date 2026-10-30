@@ -11,13 +11,17 @@ import { availabilityLabel } from '../lib/booking'
 
 type CategoryId = (typeof EQUIPMENT_CATEGORIES)[number]['id']
 
-export default function EquipmentDetails() {
+export default function EquipmentDetails({ category }: { category?: string }) {
   const router = useRouter()
-  const [tag, setTag] = useState<CategoryId>('all')
+  const [tag, setTag] = useState<CategoryId>(category ? (category as CategoryId) : 'all')
 
   useEffect(() => {
+    if (category) {
+      setTag(category as CategoryId)
+      return
+    }
     setTag(categoryFromLocation(router.query.category))
-  }, [router.asPath, router.query.category])
+  }, [category, router.asPath, router.query.category])
 
   const machines = FLEET.filter((item) => machineInCategory(item.groups, tag))
 

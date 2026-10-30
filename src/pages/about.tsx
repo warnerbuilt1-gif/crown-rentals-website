@@ -1,4 +1,4 @@
-import Head from 'next/head'
+import Seo from '../components/Seo'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
 import ReserveButton from '../components/ReserveButton'
@@ -9,18 +9,16 @@ import { SITE_ADDRESS, SITE_CITY, SITE_CONSTRUCTION_URL, SITE_HOURS, SITE_NAME, 
 export default function About() {
   return (
     <>
-      <Head>
-        <title>{`About | ${SITE_NAME}`}</title>
-        <meta
-          name="description"
-          content={`Crown Rentals in Anaconda, MT — run by Neal. Skid steer, Z-boom, compaction, and concrete finishing tools.`}
-        />
-      </Head>
+      <Seo
+        title={`About Crown Rentals in Anaconda, MT | ${SITE_NAME}`}
+        description="Crown Rentals is Neal Warner's equipment yard at 2121 Garfield St, Anaconda, MT. Call (406) 595-4472."
+        path="/about/"
+      />
       <Header />
       <main id="main">
         <section className="page-hero">
           <p className="kicker">{SITE_CITY}, Montana · Run by {SITE_OWNER}</p>
-          <h1>About Crown Rentals</h1>
+          <h1>About equipment rental in Anaconda, MT</h1>
           <p>
             {SITE_TAGLINE} Neal runs the yard in {SITE_CITY} — maintained machines, a full attachment rack, concrete
             finishing tools, and rentals that match the job.
@@ -42,8 +40,8 @@ export default function About() {
               </p>
               <p>
                 Hours are {SITE_HOURS}. If you want the crew to do the work instead of renting the iron, that is{' '}
-                <a href={SITE_CONSTRUCTION_URL}>Crown Construction of Montana</a>, also run by {SITE_OWNER}, at 2121
-                Garfield St in {SITE_CITY}.
+                <a href={SITE_CONSTRUCTION_URL}>Crown Construction of Montana</a>, also run by {SITE_OWNER}, at the same
+                Garfield Street yard in {SITE_CITY}.
               </p>
             </div>
           </Reveal>

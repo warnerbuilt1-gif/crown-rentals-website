@@ -5,7 +5,7 @@ import { DM_Sans, Oswald } from 'next/font/google'
 import MobileCallBar from '../components/MobileCallBar'
 import ReserveModal from '../components/ReserveModal'
 import { ReserveProvider } from '../components/ReserveContext'
-import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from '../config/site'
+import { rentalJsonLd, SITE_DESCRIPTION, SITE_NAME, SITE_URL } from '../config/site'
 
 const dmSans = DM_Sans({
   subsets: ['latin'],
@@ -29,7 +29,7 @@ export default function App({ Component, pageProps }: AppProps) {
       <a href="#main" className="skip-link">Skip to content</a>
       <Head>
         <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-        <meta name="description" content={SITE_DESCRIPTION} />
+        <meta key="description" name="description" content={SITE_DESCRIPTION} />
         <meta name="theme-color" content="#050505" />
         <meta name="format-detection" content="telephone=no" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -50,24 +50,7 @@ export default function App({ Component, pageProps }: AppProps) {
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              '@context': 'https://schema.org',
-              '@type': 'LocalBusiness',
-              name: 'Crown Rentals',
-              url: 'https://crownrentalsmt.com',
-              telephone: '+1-406-595-4472',
-              email: 'crownconstrustion@gmail.com',
-              image: shareImage,
-              address: {
-                '@type': 'PostalAddress',
-                streetAddress: '218 E Commercial Ave',
-                addressLocality: 'Anaconda',
-                addressRegion: 'MT',
-                postalCode: '59711',
-                addressCountry: 'US',
-              },
-              areaServed: ['Anaconda', 'Butte', 'Deer Lodge', 'Philipsburg'],
-            }),
+            __html: JSON.stringify(rentalJsonLd()),
           }}
         />
       </Head>

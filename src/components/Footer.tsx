@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import PhoneLink, { PhoneNumber } from './PhoneLink'
-import { SITE_ADDRESS, SITE_CITY, SITE_CONSTRUCTION_URL, SITE_EMAIL, SITE_HOURS, SITE_NAME, SITE_OWNER, SITE_SERVICE_AREA, SITE_SLOGAN, SITE_SMS_URI } from '../config/site'
+import { SERVICE_AREAS, SITE_ADDRESS, SITE_CITY, SITE_CONSTRUCTION_URL, SITE_EMAIL, SITE_HOURS, SITE_NAME, SITE_OWNER, SITE_SERVICE_AREA, SITE_SLOGAN, SITE_SMS_URI } from '../config/site'
 
 export default function Footer() {
   return (
@@ -27,6 +27,11 @@ export default function Footer() {
           <p>© {new Date().getFullYear()} {SITE_NAME}</p>
         </div>
         <nav className="footer-nav" aria-label="Footer">
+          <Link href="/equipment/earthmoving/">Earthmoving</Link>
+          <Link href="/equipment/concrete/">Concrete tools</Link>
+          {SERVICE_AREAS.map((area) => (
+            <Link key={area.slug} href={area.path}>{area.city} rental</Link>
+          ))}
           <Link href="/equipment">Equipment</Link>
           <Link href="/book">Book</Link>
           <Link href="/attachments">Attachments</Link>

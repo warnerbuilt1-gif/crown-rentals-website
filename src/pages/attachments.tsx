@@ -1,4 +1,4 @@
-import Head from 'next/head'
+import Seo from '../components/Seo'
 import Image from 'next/image'
 import Link from 'next/link'
 import Header from '../components/Header'
@@ -9,18 +9,16 @@ import { ATTACHMENTS, SITE_NAME } from '../config/site'
 export default function Attachments() {
   return (
     <>
-      <Head>
-        <title>{`Skid Steer Attachments | ${SITE_NAME}`}</title>
-        <meta
-          name="description"
-          content="Crown Rentals skid steer attachments: buckets, forks, grapple, auger, trencher, breaker, and more."
-        />
-      </Head>
+      <Seo
+        title={`Skid Steer Attachments in Anaconda, MT | ${SITE_NAME}`}
+        description="Skid steer attachments in Anaconda, MT. Buckets, forks, auger, and breaker. Reserve with the machine."
+        path="/attachments/"
+      />
       <Header />
       <main id="main">
         <section className="page-hero">
           <p className="kicker">Skid steer rack</p>
-          <h1>Attachments</h1>
+          <h1>Skid steer attachments in Anaconda, MT</h1>
           <p>
             The machine is half the rental. Tell us the work and we hang the right tool — dirt, brush, holes, demo,
             snow, or finish grade.

@@ -1,4 +1,4 @@
-import Head from 'next/head'
+import Seo from '../components/Seo'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
 import EquipmentBrowse from '../components/EquipmentBrowse'
@@ -9,18 +9,16 @@ import { SITE_NAME } from '../config/site'
 export default function Equipment() {
   return (
     <>
-      <Head>
-        <title>{`Equipment | ${SITE_NAME}`}</title>
-        <meta
-          name="description"
-          content="Rent a skid steer, Z-boom, compaction, power trowel, Texas fresno, and concrete saw from Crown Rentals in Anaconda."
-        />
-      </Head>
+      <Seo
+        title={`Equipment Rental in Anaconda, MT | ${SITE_NAME}`}
+        description="Skid steer, boom, trench roller, and concrete tools for rent in Anaconda, MT. See day rates. Call Crown Rentals."
+        path="/equipment/"
+      />
       <Header />
       <main id="main">
         <section className="page-hero">
           <p className="kicker">Current lot</p>
-          <h1>Equipment</h1>
+          <h1>Equipment rental in Anaconda, MT</h1>
           <p>
             Pick a category, then the machine. Day rate, week rate, and deposit are on every card. There is no sales tax. Neal confirms the window
             before a deposit is taken.

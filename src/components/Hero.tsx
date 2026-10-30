@@ -7,7 +7,7 @@ import { SITE_CITY, SITE_OWNER, SITE_SLOGAN, SITE_TAGLINE } from '../config/site
 export default function Hero() {
   return (
     <section className="hero hero-ad" aria-labelledby="hero-heading">
-      <p className="hero-locale">{SITE_CITY}, Montana · Run by {SITE_OWNER}</p>
+      <p className="hero-locale">{SITE_SLOGAN} · {SITE_CITY}, Montana · Run by {SITE_OWNER}</p>
       <div className="hero-lockup">
         <Image
           src="/logo-hero.png"
@@ -20,7 +20,7 @@ export default function Hero() {
         />
       </div>
       <h1 id="hero-heading" className="hero-title metal-text">
-        {SITE_SLOGAN}
+        Equipment rental in Anaconda, MT
       </h1>
       <p className="hero-lead">
         {SITE_TAGLINE} Rent a Cat 242D3 with attachments, a Genie Z-34/22, compaction, and concrete finishing tools

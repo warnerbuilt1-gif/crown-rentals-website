@@ -11,21 +11,26 @@ import PriceBlock from './PriceBlock'
 type FilterId = (typeof FILTER_TAGS)[number]['id']
 type ViewMode = 'grid' | 'list'
 
-export default function EquipmentBrowse({ headingId }: { headingId?: string }) {
+export default function EquipmentBrowse({ headingId, category }: { headingId?: string; category?: string }) {
   const router = useRouter()
   const [query, setQuery] = useState('')
-  const [tag, setTag] = useState<FilterId>('all')
+  const [tag, setTag] = useState<FilterId>(category ? (category as FilterId) : 'all')
   const [view, setView] = useState<ViewMode>('grid')
 
   useEffect(() => {
+    if (category) {
+      setTag(category as FilterId)
+      return
+    }
     setTag(categoryFromLocation(router.query.category))
-  }, [router.asPath, router.query.category])
+  }, [category, router.asPath, router.query.category])
 
   const selectTag = (next: FilterId) => {
+    if (router.pathname.startsWith('/equipment')) {
+      router.push(next === 'all' ? '/equipment/' : `/equipment/${next}/`)
+      return
+    }
     setTag(next)
-    if (!router.pathname.startsWith('/equipment')) return
-    const query = next === 'all' ? {} : { category: next }
-    router.replace({ pathname: '/equipment', query }, undefined, { shallow: true, scroll: false })
   }
 
   const machines = useMemo(() => {

@@ -1,4 +1,4 @@
-import Head from 'next/head'
+import Seo from '../components/Seo'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
 import { PhoneNumber } from '../components/PhoneLink'
@@ -8,13 +8,11 @@ import { SITE_ADDRESS, SITE_CITY, SITE_EMAIL, SITE_HOURS, SITE_NAME, SITE_OWNER,
 export default function Contact() {
   return (
     <>
-      <Head>
-        <title>{`Reserve Equipment | ${SITE_NAME}`}</title>
-        <meta
-          name="description"
-          content={`Reserve a skid steer, Z-boom, compaction, power trowel, or concrete saw from Neal in Anaconda. Call ${SITE_PHONE_DISPLAY}.`}
-        />
-      </Head>
+      <Seo
+        title={`Reserve Equipment in Anaconda, MT | ${SITE_NAME}`}
+        description="Reserve equipment in Anaconda, MT. Pick dates online or call Crown Rentals at (406) 595-4472."
+        path="/contact/"
+      />
       <Header />
       <main id="main">
         <section className="page-hero">

@@ -7,7 +7,7 @@ export default function CategoryStrip() {
   return (
     <nav className="category-strip" aria-label="Equipment categories">
       {categories.map((item) => (
-        <Link key={item.id} href={`/equipment/?category=${item.id}`} className="category-card">
+        <Link key={item.id} href={`/equipment/${item.id}/`} className="category-card">
           <strong>{item.label}</strong>
           <span>{item.blurb}</span>
         </Link>

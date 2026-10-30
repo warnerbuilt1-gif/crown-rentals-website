@@ -1,4 +1,4 @@
-import Head from 'next/head'
+import Seo from '../components/Seo'
 import Image from 'next/image'
 import Link from 'next/link'
 import Header from '../components/Header'
@@ -10,18 +10,16 @@ import TrustPanel from '../components/TrustPanel'
 import Reveal from '../components/Reveal'
 import JobSelector from '../components/JobSelector'
 import CategoryStrip from '../components/CategoryStrip'
-import { ATTACHMENTS, FLEET, HOME_FAQS, SITE_CITY, SITE_CONSTRUCTION_URL, SITE_HOURS_SHORT, SITE_NAME, SITE_OWNER, SITE_SERVICE_AREA, SITE_SLOGAN, SITE_TAGLINE, machineInCategory } from '../config/site'
+import { ATTACHMENTS, FLEET, HOME_FAQS, SERVICE_AREAS, SITE_CITY, SITE_CONSTRUCTION_URL, SITE_HOURS_SHORT, SITE_NAME, SITE_OWNER, SITE_SERVICE_AREA, machineInCategory } from '../config/site'
 
 export default function Home() {
   return (
     <>
-      <Head>
-        <title>{`Equipment Rental in Anaconda, MT | ${SITE_NAME}`}</title>
-        <meta
-          name="description"
-          content={`${SITE_SLOGAN} ${SITE_TAGLINE} Rent a Cat 242D3, Genie Z-34/22, compaction, and concrete finishing tools in Anaconda, MT.`}
-        />
-      </Head>
+      <Seo
+        title={`Equipment Rental in Anaconda, MT | ${SITE_NAME}`}
+        description="Rent a skid steer, boom lift, and compaction in Anaconda, MT. Delivery to Butte. Call Crown Rentals."
+        path="/"
+      />
       <Header />
       <main id="main">
         <Hero />
@@ -184,6 +182,21 @@ export default function Home() {
           </div>
         </section>
 
+        <section className="section" aria-labelledby="area-heading">
+          <div className="section-shell">
+            <h2 id="area-heading">Equipment rental across Southwest Montana</h2>
+            <p>The yard is in Anaconda. Delivery runs to these towns.</p>
+            <p>
+              {SERVICE_AREAS.map((area, index) => (
+                <span key={area.slug}>
+                  <Link href={area.path}>{`Equipment rental in ${area.city}, MT`}</Link>
+                  {index < SERVICE_AREAS.length - 1 ? ' · ' : ''}
+                </span>
+              ))}
+            </p>
+          </div>
+        </section>
+
         <section className="section section-dark" aria-labelledby="map-heading">
           <div className="section-shell">
             <Reveal>
@@ -217,7 +230,7 @@ export default function Home() {
                 <p className="kicker">Need the crew</p>
                 <h2 id="crew-heading" className="section-title">Want it built, not rented?</h2>
                 <p className="section-intro">
-                  Crown Construction of Montana is {SITE_OWNER} Warner&apos;s crew at 2121 Garfield St. Foundations,
+                  Crown Construction of Montana is {SITE_OWNER}&apos;s crew at the same Garfield Street yard. Foundations,
                   slabs, waterproofing, and site work across the same towns. Same phone.
                 </p>
                 <a href={SITE_CONSTRUCTION_URL} className="btn-primary">Get a construction estimate</a>

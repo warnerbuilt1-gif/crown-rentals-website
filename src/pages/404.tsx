@@ -1,4 +1,5 @@
 import Head from 'next/head'
+import Seo from '../components/Seo'
 import Link from 'next/link'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
@@ -8,8 +9,8 @@ import { SITE_NAME } from '../config/site'
 export default function NotFound() {
   return (
     <>
+      <Seo title={`Page not found | ${SITE_NAME}`} description="That page is not on the Crown Rentals site." path="/404/" />
       <Head>
-        <title>{`Page not found | ${SITE_NAME}`}</title>
         <meta name="robots" content="noindex" />
       </Head>
       <Header />
