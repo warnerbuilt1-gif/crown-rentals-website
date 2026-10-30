@@ -4,7 +4,7 @@ import { useRouter } from 'next/router'
 import { useEffect, useId, useRef, useState } from 'react'
 import PhoneLink from './PhoneLink'
 import ReserveButton from './ReserveButton'
-import { SITE_NAME, SITE_SLOGAN } from '../config/site'
+import { SITE_CREDENTIAL, SITE_NAME, SITE_SLOGAN } from '../config/site'
 
 const navItems = [
   { href: '/', label: 'Home' },
@@ -65,10 +65,11 @@ export default function Header() {
     <header className="site-header">
       <div className="header-bar">
         <Link href="/" className="header-brand" aria-label={`${SITE_NAME} home`}>
-          <Image src="/crown-mark.svg" alt="" width={128} height={128} className="header-mark" priority />
+          <Image src="/crown-mark.png" alt="" width={645} height={582} className="header-mark" priority />
           <span className="header-brand-copy">
             <span className="header-wordmark metal-text">{SITE_NAME}</span>
             <span className="header-slogan">{SITE_SLOGAN}</span>
+            <span className="header-credential">{SITE_CREDENTIAL}</span>
           </span>
         </Link>
 

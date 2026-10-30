@@ -242,8 +242,8 @@ img {
 
 .header-mark {
   display: block;
-  width: 2.7rem;
-  height: 2.7rem;
+  width: 3.15rem;
+  height: auto;
   flex-shrink: 0;
 }
 
@@ -270,6 +270,15 @@ img {
   letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--copper-light);
+}
+
+.header-credential {
+  font-family: var(--font-display);
+  font-size: 0.62rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted);
 }
 
 .header-phone {
@@ -338,8 +347,7 @@ img {
   }
 
   .header-mark {
-    width: 3rem;
-    height: 3rem;
+    width: 3.45rem;
   }
 }
 
@@ -1065,6 +1073,15 @@ img {
   margin: 0 0 0.3rem;
   font-family: var(--font-display);
   font-size: 1.05rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--copper-light);
+}
+
+.footer-credential {
+  margin: 0 0 0.45rem;
+  font-family: var(--font-display);
+  font-size: 0.72rem;
   letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--copper-light);

@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import PhoneLink, { PhoneNumber } from './PhoneLink'
-import { SERVICE_AREAS, SITE_ADDRESS, SITE_CITY, SITE_CONSTRUCTION_URL, SITE_EMAIL, SITE_HOURS, SITE_NAME, SITE_OWNER, SITE_SERVICE_AREA, SITE_SLOGAN, SITE_SMS_URI } from '../config/site'
+import { SERVICE_AREAS, SITE_ADDRESS, SITE_CITY, SITE_CONSTRUCTION_URL, SITE_CREDENTIAL, SITE_EMAIL, SITE_HOURS, SITE_NAME, SITE_OWNER, SITE_SERVICE_AREA, SITE_SLOGAN, SITE_SMS_URI } from '../config/site'
 
 export default function Footer() {
   return (
@@ -20,6 +20,7 @@ export default function Footer() {
       <div className="footer-grid">
         <div>
           <p className="footer-brand-name">{SITE_NAME}</p>
+          <p className="footer-credential">{SITE_CREDENTIAL}</p>
           <p>{SITE_ADDRESS}</p>
           <p>{SITE_HOURS}</p>
           <p>{SITE_CITY}, Montana · Run by {SITE_OWNER}</p>

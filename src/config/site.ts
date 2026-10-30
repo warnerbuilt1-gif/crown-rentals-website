@@ -1,6 +1,7 @@
 export const SITE_NAME = 'Crown Rentals'
 export const SITE_OWNER = 'Neal Warner'
 export const SITE_SLOGAN = 'Crown the job.'
+export const SITE_CREDENTIAL = 'Licensed and insured'
 export const SITE_TAGLINE = 'Premium iron. Local yard.'
 export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://crownrentalsmt.com'
 export const SITE_CONSTRUCTION_URL = 'https://crownconstructionmt.com'
