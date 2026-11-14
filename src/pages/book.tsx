@@ -22,6 +22,7 @@ export default function Book() {
             billing, deposit, and delivery. {SITE_DELIVERY_LINE} Guest checkout — no account. Neal confirms, then sends a card link for the
             deposit.
           </p>
+          <p>Owner-operated by Neal</p>
         </section>
         <div className="section-shell booking-page">
           <BookingBoard />

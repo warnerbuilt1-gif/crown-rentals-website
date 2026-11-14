@@ -10,7 +10,7 @@ import TrustPanel from '../components/TrustPanel'
 import Reveal from '../components/Reveal'
 import JobSelector from '../components/JobSelector'
 import CategoryStrip from '../components/CategoryStrip'
-import { CallForPrice } from '../components/PhoneLink'
+import PhoneLink, { CallForPrice } from '../components/PhoneLink'
 import { ATTACHMENTS, FLEET, HOME_FAQS, SERVICE_AREAS, SITE_CITY, SITE_CONSTRUCTION_URL, SITE_DELIVERY_LINE, SITE_HOURS_SHORT, SITE_NAME, SITE_OWNER, SITE_SERVICE_AREA, machineInCategory } from '../config/site'
 
 export default function Home() {
@@ -222,6 +222,27 @@ export default function Home() {
             <Reveal delay={80}>
               <TrustPanel />
             </Reveal>
+          </div>
+        </section>
+
+        <section className="section section-dark" aria-labelledby="neal-heading">
+          <div className="section-shell">
+            <div className="attach-panel">
+              <div className="attach-photo photo-spot">
+                <p>[PLACEHOLDER: photo of Neal with a machine]</p>
+              </div>
+              <div className="section-head">
+                <p className="kicker">Owner</p>
+                <h2 id="neal-heading" className="section-title">Meet Neal, Owner and Operator</h2>
+                <p className="section-intro">
+                  Neal runs Crown Rentals and has years of experience running Cat heavy equipment. He delivers, sets up,
+                  and can show you how to run the machine. Call or text Neal directly.
+                </p>
+                <p>[PLACEHOLDER: years running Cat]</p>
+                <p>[PLACEHOLDER: certifications/qualifications]</p>
+                <PhoneLink className="btn-secondary" />
+              </div>
+            </div>
           </div>
         </section>
 
