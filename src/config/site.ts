@@ -393,19 +393,25 @@ const MACHINE_FACTS: Record<
 }
 
 export function machineGoodFor(slug: string) {
-  return MACHINE_FACTS[slug]?.goodFor ?? (['[PLACEHOLDER: spec]', '[PLACEHOLDER: spec]', '[PLACEHOLDER: spec]'] as const)
+  const jobs = MACHINE_FACTS[slug]?.goodFor
+  if (!jobs || jobs.some((job) => job.includes(SPEC_GAP))) return []
+  return jobs
 }
 
 export function machineKeySpecs(slug: string) {
   const facts = MACHINE_FACTS[slug]
-  const pick = (value?: string) => value ?? SPEC_GAP
-  return [
-    { label: 'Operating weight', value: pick(facts?.weight) },
-    { label: 'Horsepower', value: pick(facts?.horsepower) },
-    { label: facts?.depth && !facts?.lift ? 'Dig depth' : 'Lift capacity', value: pick(facts?.lift ?? facts?.depth) },
-    { label: 'Width', value: pick(facts?.width) },
-    { label: 'Fuel type', value: pick(facts?.fuel) },
+  const rows = [
+    facts?.weight ? { label: 'Operating weight', value: facts.weight } : null,
+    facts?.horsepower ? { label: 'Horsepower', value: facts.horsepower } : null,
+    facts?.lift
+      ? { label: 'Lift capacity', value: facts.lift }
+      : facts?.depth
+        ? { label: 'Dig depth', value: facts.depth }
+        : null,
+    facts?.width ? { label: 'Width', value: facts.width } : null,
+    facts?.fuel ? { label: 'Fuel type', value: facts.fuel } : null,
   ]
+  return rows.filter((row): row is { label: string; value: string } => row != null && !row.value.includes(SPEC_GAP))
 }
 
 export function machineRentalLabel(slug: string) {
@@ -549,11 +555,15 @@ export const FAQ_PAGE = [
   },
 ] as const
 
+export function visibleFaqs() {
+  return FAQ_PAGE.filter((item) => !item.answer.includes('[PLACEHOLDER'))
+}
+
 export function faqPageJsonLd() {
   return {
     '@context': 'https://schema.org',
     '@type': 'FAQPage',
-    mainEntity: FAQ_PAGE.map((item) => ({
+    mainEntity: visibleFaqs().map((item) => ({
       '@type': 'Question',
       name: item.question,
       acceptedAnswer: {

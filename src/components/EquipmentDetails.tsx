@@ -50,10 +50,12 @@ export default function EquipmentDetails({ category, slug }: { category?: string
                 Request a quote
               </ReserveButton>
             </div>
-            <p className="detail-good-for">
-              <span>Good for</span>
-              {machineGoodFor(machine.slug).join(', ')}
-            </p>
+            {machineGoodFor(machine.slug).length > 0 ? (
+              <p className="detail-good-for">
+                <span>Good for</span>
+                {machineGoodFor(machine.slug).join(', ')}
+              </p>
+            ) : null}
             <SpecList specs={machineKeySpecs(machine.slug)} />
             {machine.slug === 'skid-steer' ? (
               <p className="detail-attach">

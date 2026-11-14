@@ -3,7 +3,7 @@ import Seo from '../components/Seo'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
 import FaqList from '../components/FaqList'
-import { FAQ_PAGE, FIRST_RUN_LINE, SITE_CREDENTIAL, SITE_NAME, faqPageJsonLd } from '../config/site'
+import { FIRST_RUN_LINE, SITE_CREDENTIAL, SITE_NAME, faqPageJsonLd, visibleFaqs } from '../config/site'
 
 export default function Faq() {
   return (
@@ -29,7 +29,7 @@ export default function Faq() {
         </section>
         <section className="section section-flush">
           <div className="section-shell">
-            <FaqList items={FAQ_PAGE} />
+            <FaqList items={visibleFaqs()} />
           </div>
         </section>
         <section className="section">
