@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { FLEET, SITE_DELIVERY_FEE, SITE_WEEKLY_DAYS, formatUsd } from '../config/site'
+import { FLEET, SITE_DELIVERY_FEE, SITE_DELIVERY_LINE, SITE_WEEKLY_DAYS, formatUsd } from '../config/site'
 
 export type FleetItem = (typeof FLEET)[number]
 
@@ -97,7 +97,7 @@ export function buildQuote(items: FleetItem[], days: number, delivery: boolean):
     { label: 'Days', value: String(days) },
     weeks > 0 ? { label: 'Week billing', value: `${weeks} × 6-day week` } : null,
     { label: 'Rental', value: formatUsd(rental) },
-    { label: 'Delivery', value: delivery ? formatUsd(deliveryFee) : 'Yard pickup' },
+    { label: 'Delivery', value: SITE_DELIVERY_LINE },
     { label: 'Deposit hold', value: formatUsd(deposit) },
     { label: 'Est. due', value: formatUsd(due) },
   ].filter(Boolean) as { label: string; value: string }[]

@@ -1,0 +1,30 @@
+---
+description: Standing rules for every chat in the Crown Rentals website
+alwaysApply: true
+---
+
+# Crown Rentals website rules
+
+Project: crownrentalsmt.com for Crown Rentals (Anaconda/Butte, Montana). Next.js 14 static export (`out/`), Tailwind, deployed on Vercel. Business email: 4crownrentals@gmail.com. Owner: Neal.
+
+## Scope
+- Do only what the prompt asks. No extra features, redesigns, refactors, renames or "improvements".
+- Never touch the Crown Construction site or any other project.
+- Keep current design, colors, fonts, layout, prices and wording unless the prompt says to change them.
+- Never invent reviews, certifications, prices, stats or business details. Leave a clear [PLACEHOLDER] and tell me.
+
+## Efficiency
+- Smallest change that fully completes the task. Edit only the files needed; targeted edits, not whole-file rewrites.
+- Don't re-explore the whole repo. Start from the files the prompt names; key code is in `src/components`, `src/pages`, `src/config/site.ts`, `src/lib`.
+- Don't ask questions you can answer from the code. Ask only for real decisions. If a task is unclear or risky, stop and ask first.
+
+## Testing
+- Never start, restart or wait on a local dev server.
+- Verify with ONE production build (`npm run build`). If it fails, fix once; if it fails again, stop and show me the error.
+- Don't commit or push unless I ask.
+
+## Quality
+- Don't break booking, the calendar, forms, links or the mobile layout.
+
+## Reporting
+After each task reply with only: what changed (short bullets), files edited, anything I need to fill in or check. Then stop and wait.

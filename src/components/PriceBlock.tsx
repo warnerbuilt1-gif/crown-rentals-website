@@ -1,4 +1,4 @@
-import { SITE_DELIVERY_FEE, SITE_WEEKLY_DAYS, formatUsd } from '../config/site'
+import { SITE_DELIVERY_LINE, SITE_WEEKLY_DAYS, formatUsd } from '../config/site'
 
 type PriceBlockProps = {
   dailyRate: number
@@ -25,16 +25,13 @@ export default function PriceBlock({ dailyRate, deposit, compact = false }: Pric
           <strong>{formatUsd(deposit)}</strong>
         </li>
         {compact ? null : (
-          <li>
-            <span>Delivery</span>
-            <strong>{formatUsd(SITE_DELIVERY_FEE)} · yard pickup free</strong>
-          </li>
+          <li className="price-line-rule">{SITE_DELIVERY_LINE}</li>
         )}
       </ul>
       <p className="price-note">
         {compact
           ? 'No sales tax. The deposit is a hold, not part of the rental.'
-          : 'No sales tax. The deposit is a card hold and releases when the unit is walked back in. Delivery is extra.'}
+          : 'No sales tax. The deposit is a card hold and releases when the unit is walked back in.'}
       </p>
     </div>
   )

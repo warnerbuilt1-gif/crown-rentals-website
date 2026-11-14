@@ -20,3 +20,11 @@ export function PhoneNumber({ className }: { className?: string }) {
     </a>
   )
 }
+
+export function CallForPrice() {
+  return (
+    <span>
+      <a href={SITE_PHONE_TEL_URI} className="footer-link">Call for price</a>
+    </span>
+  )
+}

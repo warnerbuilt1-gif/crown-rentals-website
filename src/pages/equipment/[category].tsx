@@ -4,7 +4,7 @@ import Footer from '../../components/Footer'
 import Seo from '../../components/Seo'
 import EquipmentBrowse from '../../components/EquipmentBrowse'
 import EquipmentDetails from '../../components/EquipmentDetails'
-import { EQUIPMENT_CATEGORIES, SERVICE_AREAS, SITE_NAME } from '../../config/site'
+import { EQUIPMENT_CATEGORIES, SERVICE_AREAS, SITE_DELIVERY_LINE, SITE_NAME } from '../../config/site'
 import Link from 'next/link'
 
 type Props = { category: string }
@@ -31,6 +31,7 @@ export default function CategoryPage({ category }: Props) {
         <section className="section">
           <div className="section-shell">
             <h2>Delivery towns</h2>
+            <p>{SITE_DELIVERY_LINE}</p>
             <p>
               {SERVICE_AREAS.map((area, index) => (
                 <span key={area.slug}>

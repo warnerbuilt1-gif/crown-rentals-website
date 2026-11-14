@@ -17,6 +17,8 @@ export const SITE_ADDRESS = '2121 Garfield St, Anaconda, MT 59711'
 export const SITE_HOURS = 'Mon–Sat 7:00 a.m.–5:30 p.m. · Sunday by appointment'
 export const SITE_HOURS_SHORT = 'Mon–Sat 7–5:30'
 export const SITE_DELIVERY_FEE = 95
+export const SITE_DELIVERY_LINE =
+  'Delivery $95 within Anaconda to Philipsburg. Yard pickup free. Farther out, call for a quote.'
 export const SITE_WEEKLY_DAYS = 6
 export const SITE_PICKUP_WINDOWS = ['Morning 7:00–11:00', 'Afternoon 12:00–5:30'] as const
 export const SITE_SERVICE_AREA = 'Anaconda · Butte · Deer Lodge · Philipsburg · and nearby Southwest Montana'
@@ -110,7 +112,7 @@ export const FLEET = [
       { label: 'Power', value: '74.3 hp · Cat C3.3B DIT turbo' },
       { label: 'Rated capacity', value: '2,200 lb · 4,400 lb tip' },
       { label: 'Hydraulics', value: '20 gpm at 3,335 psi' },
-      { label: 'Towing', value: 'Not a tow vehicle. Haul it on a trailer, or add delivery.' },
+      { label: 'Towing', value: `Not a tow vehicle. Haul it on a trailer. ${SITE_DELIVERY_LINE}` },
     ],
     image: '/skid-steer-cat.jpg',
     gallery: ['/skid-steer-cat.jpg'],
@@ -135,7 +137,7 @@ export const FLEET = [
       { label: 'Dimensions', value: '40 ft 6 in working height · 22 ft 3 in reach' },
       { label: 'Platform', value: '34 ft 6 in height · 500 lb capacity' },
       { label: 'Power', value: '48V DC' },
-      { label: 'Towing', value: 'Trailer it, or ask Neal about delivery.' },
+      { label: 'Towing', value: `Trailer it. ${SITE_DELIVERY_LINE}` },
     ],
     image: '/z-boom-genie.jpg',
     gallery: ['/z-boom-genie.jpg'],
@@ -360,7 +362,7 @@ export const HOME_FAQS = [
   {
     question: 'What does a day rate include?',
     answer:
-      'The price on each card is the rental rate. There is no sales tax. A week bills as 6 days. The deposit is a separate card hold. Delivery is extra. Attachments are reserved with the skid steer.',
+      `The price on each card is the rental rate. There is no sales tax. A week bills as 6 days. The deposit is a separate card hold. ${SITE_DELIVERY_LINE} Attachments are reserved with the skid steer.`,
   },
   {
     question: 'Do you rent concrete finishing tools?',
@@ -370,7 +372,7 @@ export const HOME_FAQS = [
   {
     question: 'Can I book dates on the site?',
     answer:
-      'Yes. Open Book, pick the job or check the machines, then tap start and return on the calendar. The quote updates with days, weekly billing, deposit, and delivery. Guest checkout sends the request. Neal confirms, then sends a card link for the deposit.',
+      `Yes. Open Book, pick the job or check the machines, then tap start and return on the calendar. The quote updates with days, weekly billing, deposit, and delivery. ${SITE_DELIVERY_LINE} Guest checkout sends the request. Neal confirms, then sends a card link for the deposit.`,
   },
 ] as const
 
@@ -418,7 +420,7 @@ export const CONTRACT_TERMS = [
   'A 2-hour hold starts when the request is sent. Cancel free up to 24 hours before start.',
   'Inside 24 hours, one day of the quoted rate may apply if the window cannot be refilled.',
   'Valid ID, a card deposit, and proof of insurance are required at pickup.',
-  'Delivery is quoted for Anaconda, Butte, Deer Lodge, and Philipsburg. Yard pickup is free.',
+  SITE_DELIVERY_LINE,
 ] as const
 
 export function formatUsd(amount: number, cents = false) {
@@ -437,25 +439,25 @@ export const SERVICE_AREAS = [
     slug: 'anaconda-mt',
     path: '/equipment-rental-anaconda-mt/',
     city: 'Anaconda',
-    lead: 'The yard is at 2121 Garfield St in Anaconda. Pickup is free, and same-day is often possible when the machine is on the lot.',
+    lead: `The yard is at 2121 Garfield St in Anaconda. Same-day is often possible when the machine is on the lot. ${SITE_DELIVERY_LINE}`,
   },
   {
     slug: 'butte-mt',
     path: '/equipment-rental-butte-mt/',
     city: 'Butte',
-    lead: 'Crown Rentals delivers from the Anaconda yard to Butte. Skid steer, boom, trench roller, plate, and concrete tools.',
+    lead: `Crown Rentals delivers from the Anaconda yard to Butte. Skid steer, boom, trench roller, plate, and concrete tools. ${SITE_DELIVERY_LINE}`,
   },
   {
     slug: 'deer-lodge-mt',
     path: '/equipment-rental-deer-lodge-mt/',
     city: 'Deer Lodge',
-    lead: 'Deer Lodge jobs are served from Anaconda. Tell Neal the address and he will quote delivery with the machine.',
+    lead: `Deer Lodge jobs are served from Anaconda. ${SITE_DELIVERY_LINE}`,
   },
   {
     slug: 'philipsburg-mt',
     path: '/equipment-rental-philipsburg-mt/',
     city: 'Philipsburg',
-    lead: 'Philipsburg and the surrounding valley are on the delivery route. Reserve the iron, then Neal confirms the window.',
+    lead: `Philipsburg and the surrounding valley are on the delivery route. Reserve the iron, then Neal confirms the window. ${SITE_DELIVERY_LINE}`,
   },
 ] as const
 

@@ -3,14 +3,14 @@ import Header from '../components/Header'
 import Footer from '../components/Footer'
 import Seo from '../components/Seo'
 import PhoneLink from '../components/PhoneLink'
-import { EQUIPMENT_CATEGORIES, SERVICE_AREAS, SITE_ADDRESS, SITE_NAME } from '../config/site'
+import { EQUIPMENT_CATEGORIES, SERVICE_AREAS, SITE_ADDRESS, SITE_DELIVERY_LINE, SITE_NAME } from '../config/site'
 
 type Area = (typeof SERVICE_AREAS)[number]
 
 export default function AreaPage({ area }: { area: Area }) {
   const categories = EQUIPMENT_CATEGORIES.filter((item) => item.id !== 'all')
   const title = `Equipment Rental in ${area.city}, MT | ${SITE_NAME}`
-  const description = `Rent a skid steer, boom lift, and compaction in ${area.city}, MT. Local delivery from Anaconda. Call Crown Rentals.`
+  const description = `Rent a skid steer, boom lift, and compaction in ${area.city}, MT. ${SITE_DELIVERY_LINE} Call Crown Rentals.`
 
   return (
     <>

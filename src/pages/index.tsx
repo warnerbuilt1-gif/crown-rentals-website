@@ -10,14 +10,15 @@ import TrustPanel from '../components/TrustPanel'
 import Reveal from '../components/Reveal'
 import JobSelector from '../components/JobSelector'
 import CategoryStrip from '../components/CategoryStrip'
-import { ATTACHMENTS, FLEET, HOME_FAQS, SERVICE_AREAS, SITE_CITY, SITE_CONSTRUCTION_URL, SITE_HOURS_SHORT, SITE_NAME, SITE_OWNER, SITE_SERVICE_AREA, machineInCategory } from '../config/site'
+import { CallForPrice } from '../components/PhoneLink'
+import { ATTACHMENTS, FLEET, HOME_FAQS, SERVICE_AREAS, SITE_CITY, SITE_CONSTRUCTION_URL, SITE_DELIVERY_LINE, SITE_HOURS_SHORT, SITE_NAME, SITE_OWNER, SITE_SERVICE_AREA, machineInCategory } from '../config/site'
 
 export default function Home() {
   return (
     <>
       <Seo
         title={`Equipment Rental in Anaconda, MT | ${SITE_NAME}`}
-        description="Rent a skid steer, boom lift, and compaction in Anaconda, MT. Delivery to Butte. Call Crown Rentals."
+        description={`Rent a skid steer, boom lift, and compaction in Anaconda, MT. ${SITE_DELIVERY_LINE} Call Crown Rentals.`}
         path="/"
       />
       <Header />
@@ -108,6 +109,7 @@ export default function Home() {
                       <div className="attach-chip" key={item.name}>
                         <strong>{item.name}</strong>
                         <span>{item.use}</span>
+                        <CallForPrice />
                       </div>
                     ))}
                   </div>
@@ -175,7 +177,7 @@ export default function Home() {
                 <article className="step">
                   <span>03</span>
                   <h3>Pickup or delivery</h3>
-                  <p>Choose morning or afternoon. Yard pickup is free. Delivery is quoted to Anaconda through Philipsburg.</p>
+                  <p>Choose morning or afternoon. {SITE_DELIVERY_LINE}</p>
                 </article>
               </Reveal>
             </div>
@@ -185,7 +187,7 @@ export default function Home() {
         <section className="section" aria-labelledby="area-heading">
           <div className="section-shell">
             <h2 id="area-heading">Equipment rental across Southwest Montana</h2>
-            <p>The yard is in Anaconda. Delivery runs to these towns.</p>
+            <p>The yard is in Anaconda. {SITE_DELIVERY_LINE}</p>
             <p>
               {SERVICE_AREAS.map((area, index) => (
                 <span key={area.slug}>

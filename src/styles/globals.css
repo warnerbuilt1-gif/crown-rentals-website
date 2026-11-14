@@ -1602,6 +1602,11 @@ button.btn-primary:disabled {
   text-align: right;
 }
 
+.price-lines li.price-line-rule {
+  display: block;
+  line-height: 1.45;
+}
+
 .price-note {
   margin: 0.45rem 0 0.85rem !important;
   color: var(--muted) !important;
@@ -2018,6 +2023,17 @@ button.btn-primary:disabled {
 
 .quote-card li span {
   color: var(--muted);
+}
+
+.quote-card li.is-rule {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.2rem;
+}
+
+.quote-card li.is-rule strong {
+  text-align: left;
+  font-weight: 600;
 }
 
 .modal-side-dates p {

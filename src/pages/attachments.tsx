@@ -4,6 +4,7 @@ import Link from 'next/link'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
 import ReserveButton from '../components/ReserveButton'
+import { CallForPrice } from '../components/PhoneLink'
 import { ATTACHMENTS, SITE_NAME } from '../config/site'
 
 export default function Attachments() {
@@ -40,6 +41,7 @@ export default function Attachments() {
                 <div className="attach-chip" key={item.name}>
                   <strong>{item.name}</strong>
                   <span>{item.use}</span>
+                  <CallForPrice />
                 </div>
               ))}
             </div>

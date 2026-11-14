@@ -5,7 +5,8 @@ import {
   CONTRACT_TERMS,
   FLEET,
   JOB_GUIDES,
-  SITE_DELIVERY_FEE,
+  SITE_DELIVERY_LINE,
+  SITE_PHONE_TEL_URI,
   SITE_OWNER,
   SITE_PICKUP_WINDOWS,
   SITE_WEEKLY_DAYS,
@@ -77,7 +78,7 @@ export default function BookingBoard({ initialSlug = '', compact = false }: Book
     machine: selected.map((item) => item.name).join(', '),
     attachments: [
       attachments,
-      delivery ? `Delivery (+${formatUsd(SITE_DELIVERY_FEE)})` : 'Yard pickup',
+      delivery ? SITE_DELIVERY_LINE : `Yard pickup. ${SITE_DELIVERY_LINE}`,
       `Window: ${windowSlot}`,
       email ? `Email: ${email}` : '',
       `Est. due: ${quote.lines.find((line) => line.label === 'Est. due')?.value ?? ''}`,
@@ -142,6 +143,9 @@ export default function BookingBoard({ initialSlug = '', compact = false }: Book
               ))}
             </datalist>
           </label>
+          <p className="contact-note">
+            <a href={SITE_PHONE_TEL_URI} className="footer-link">Call for price</a>
+          </p>
         </section>
 
         <section className="booking-panel">
@@ -160,7 +164,7 @@ export default function BookingBoard({ initialSlug = '', compact = false }: Book
             <label className={`booking-choice${delivery ? ' is-active' : ''}`}>
               <input type="radio" name={`${fieldId}-fulfillment`} checked={delivery} onChange={() => setDelivery(true)} />
               <strong>Delivery</strong>
-              <span>{formatUsd(SITE_DELIVERY_FEE)} · Anaconda to Philipsburg</span>
+              <span>{SITE_DELIVERY_LINE}</span>
             </label>
           </div>
           <label className="form-field">
@@ -185,7 +189,7 @@ export default function BookingBoard({ initialSlug = '', compact = false }: Book
           <h3>{selected.length ? `${selected.length} item${selected.length === 1 ? '' : 's'}` : 'Select equipment'}</h3>
           <ul>
             {quote.lines.map((line) => (
-              <li key={line.label}>
+              <li key={line.label} className={line.label === 'Delivery' ? 'is-rule' : undefined}>
                 <span>{line.label}</span>
                 <strong>{line.value}</strong>
               </li>

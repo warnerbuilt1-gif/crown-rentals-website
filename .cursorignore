@@ -1,0 +1,10 @@
+# Keep Cursor's search fast: skip generated and heavy files
+node_modules/
+.next/
+out/
+.vercel/
+.env*
+tsconfig.tsbuildinfo
+package-lock.json
+*.mov
+*.mp4
