@@ -6,7 +6,7 @@ import PriceBlock from './PriceBlock'
 import PhoneLink from './PhoneLink'
 import ReserveButton from './ReserveButton'
 import SpecList from './SpecList'
-import { EQUIPMENT_CATEGORIES, FLEET, categoryFromLocation, machineInCategory } from '../config/site'
+import { ATTACHMENTS, EQUIPMENT_CATEGORIES, FLEET, categoryFromLocation, machineGoodFor, machineInCategory, machineKeySpecs } from '../config/site'
 import { useAvailabilityLabel } from '../lib/booking'
 
 type CategoryId = (typeof EQUIPMENT_CATEGORIES)[number]['id']
@@ -16,7 +16,7 @@ function MachineKicker({ kicker, slug }: { kicker: string; slug: string }) {
   return <p className="kicker">{label ? `${kicker} · ${label}` : kicker}</p>
 }
 
-export default function EquipmentDetails({ category }: { category?: string }) {
+export default function EquipmentDetails({ category, slug }: { category?: string; slug?: string }) {
   const router = useRouter()
   const [tag, setTag] = useState<CategoryId>(category ? (category as CategoryId) : 'all')
 
@@ -28,7 +28,7 @@ export default function EquipmentDetails({ category }: { category?: string }) {
     setTag(categoryFromLocation(router.query.category))
   }, [category, router.asPath, router.query.category])
 
-  const machines = FLEET.filter((item) => machineInCategory(item.groups, tag))
+  const machines = FLEET.filter((item) => (slug ? item.slug === slug : machineInCategory(item.groups, tag)))
 
   return (
     <div className="detail-stack">
@@ -37,18 +37,36 @@ export default function EquipmentDetails({ category }: { category?: string }) {
           <ProductGallery images={machine.gallery} alt={machine.alt} position={machine.imagePosition} fit={machine.fit} />
           <div className="detail-copy">
             <MachineKicker kicker={machine.kicker} slug={machine.slug} />
-            <h2>{machine.name}</h2>
+            <h2>
+              <Link href={`/equipment/${machine.groups[0]}/${machine.slug}/`}>{machine.name}</Link>
+            </h2>
             <PriceBlock dailyRate={machine.dailyRate} deposit={machine.deposit} />
-            <SpecList specs={machine.specs} />
             <div className="hero-actions equip-detail-actions">
               <Link href={`/book/?item=${machine.slug}`} className="btn-primary">
-                Check availability
+                Book Now
               </Link>
+              <PhoneLink className="btn-secondary" />
               <ReserveButton slug={machine.slug} className="btn-secondary">
                 Request a quote
               </ReserveButton>
-              <PhoneLink className="btn-secondary">Call to reserve</PhoneLink>
             </div>
+            <p className="detail-good-for">
+              <span>Good for</span>
+              {machineGoodFor(machine.slug).join(', ')}
+            </p>
+            <SpecList specs={machineKeySpecs(machine.slug)} />
+            {machine.slug === 'skid-steer' ? (
+              <p className="detail-attach">
+                <span>Compatible attachments</span>
+                {ATTACHMENTS.map((item, index) => (
+                  <span key={item.name}>
+                    <Link href="/attachments/">{item.name}</Link>
+                    {index < ATTACHMENTS.length - 1 ? ' · ' : ''}
+                  </span>
+                ))}
+              </p>
+            ) : null}
+            <SpecList specs={machine.specs} />
           </div>
         </article>
       ))}

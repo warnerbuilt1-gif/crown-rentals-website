@@ -1,4 +1,5 @@
 import { SITE_DELIVERY_LINE, SITE_WEEKLY_DAYS, formatUsd } from '../config/site'
+import { CallForPrice } from './PhoneLink'
 
 type PriceBlockProps = {
   dailyRate: number
@@ -20,6 +21,12 @@ export default function PriceBlock({ dailyRate, deposit, compact = false }: Pric
           <span>Week</span>
           <strong>{formatUsd(week)} · 6 days</strong>
         </li>
+        {compact ? null : (
+          <li>
+            <span>Month</span>
+            <strong><CallForPrice /></strong>
+          </li>
+        )}
         <li>
           <span>Deposit hold</span>
           <strong>{formatUsd(deposit)}</strong>

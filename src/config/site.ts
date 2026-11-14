@@ -318,6 +318,100 @@ export const FLEET = [
   },
 ] as const
 
+const SPEC_GAP = '[PLACEHOLDER: spec]'
+
+const MACHINE_FACTS: Record<
+  string,
+  {
+    rentalLabel: string
+    goodFor: readonly [string, string, string]
+    weight?: string
+    horsepower?: string
+    lift?: string
+    depth?: string
+    width?: string
+    fuel?: string
+  }
+> = {
+  'skid-steer': {
+    rentalLabel: 'Skid Steer',
+    weight: '7,138 lb operating',
+    horsepower: '74.3 hp',
+    lift: '2,200 lb · 4,400 lb tip',
+    width: '66 in wide',
+    goodFor: ['Grading', 'Trenching', 'Loading'],
+  },
+  'z-boom': {
+    rentalLabel: 'Boom Lift',
+    lift: '500 lb capacity',
+    fuel: '48V DC',
+    goodFor: ['Overhead work', 'Siding', 'Painting'],
+  },
+  'trench-roller': {
+    rentalLabel: 'Trench Roller',
+    weight: '3,087 lb with 24 in drums · 3,197 lb with 33 in',
+    horsepower: '20.4 hp',
+    width: '24 or 33 in drums',
+    fuel: 'Yanmar diesel',
+    goodFor: ['Trench compaction', 'Backfill', 'Utility trenches'],
+  },
+  'plate-wacker': {
+    rentalLabel: 'Plate Compactor',
+    weight: '215 lb operating',
+    width: '19.7 × 20.9 in plate',
+    goodFor: ['Pad compaction', 'Pavers', 'Base'],
+  },
+  'power-trowel': {
+    rentalLabel: 'Power Trowel',
+    weight: '198 lb operating',
+    horsepower: '4.8 hp',
+    width: '36 in working diameter',
+    goodFor: ['Slab finish', 'Smoothing', 'Pour finish'],
+  },
+  'concrete-saw': {
+    rentalLabel: 'Concrete Saw',
+    weight: '320 lb operating',
+    horsepower: '11.7 hp',
+    depth: '7.5 in max depth',
+    goodFor: ['Joint cuts', 'Pavement cuts', 'Slab cuts'],
+  },
+  'texas-fresno': {
+    rentalLabel: 'Texas Fresno',
+    width: '48 in blade',
+    fuel: 'Hand tools',
+    goodFor: ['Floating', 'Slab finish', 'Smoothing'],
+  },
+  'knee-boards': {
+    rentalLabel: 'Knee Boards',
+    fuel: 'Hand tool',
+    goodFor: ['Hand finishing', 'Slab work', 'Edges'],
+  },
+  'finishing-tools': {
+    rentalLabel: 'Finishing Tools',
+    goodFor: ['Floating', 'Edging', 'Grooving'],
+  },
+}
+
+export function machineGoodFor(slug: string) {
+  return MACHINE_FACTS[slug]?.goodFor ?? (['[PLACEHOLDER: spec]', '[PLACEHOLDER: spec]', '[PLACEHOLDER: spec]'] as const)
+}
+
+export function machineKeySpecs(slug: string) {
+  const facts = MACHINE_FACTS[slug]
+  const pick = (value?: string) => value ?? SPEC_GAP
+  return [
+    { label: 'Operating weight', value: pick(facts?.weight) },
+    { label: 'Horsepower', value: pick(facts?.horsepower) },
+    { label: facts?.depth && !facts?.lift ? 'Dig depth' : 'Lift capacity', value: pick(facts?.lift ?? facts?.depth) },
+    { label: 'Width', value: pick(facts?.width) },
+    { label: 'Fuel type', value: pick(facts?.fuel) },
+  ]
+}
+
+export function machineRentalLabel(slug: string) {
+  return MACHINE_FACTS[slug]?.rentalLabel ?? FLEET.find((item) => item.slug === slug)?.name ?? 'Equipment'
+}
+
 export const ATTACHMENTS = [
   { name: 'Standard bucket', use: 'Dirt, gravel, and general loading' },
   { name: '4-in-1 bucket', use: 'Doze, clamp, and dump without swapping' },
@@ -422,6 +516,16 @@ export const CONTRACT_TERMS = [
   'Valid ID, a card deposit, and proof of insurance are required at pickup.',
   SITE_DELIVERY_LINE,
 ] as const
+
+export function machineSeo(slug: string) {
+  const machine = FLEET.find((item) => item.slug === slug)
+  const label = machineRentalLabel(slug)
+  const rate = machine ? `${formatUsd(machine.dailyRate)} a day` : 'Call for price'
+  return {
+    title: `${label} Rental in Anaconda & Butte, MT | ${SITE_NAME}`,
+    description: `Rent a ${label.toLowerCase()} in Anaconda and Butte, MT. ${rate}. Week bills as ${SITE_WEEKLY_DAYS} days. ${SITE_DELIVERY_LINE}`,
+  }
+}
 
 export function formatUsd(amount: number, cents = false) {
   return new Intl.NumberFormat('en-US', {

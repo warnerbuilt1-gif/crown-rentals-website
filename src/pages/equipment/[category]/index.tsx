@@ -1,10 +1,10 @@
 import { GetStaticPaths, GetStaticProps } from 'next'
-import Header from '../../components/Header'
-import Footer from '../../components/Footer'
-import Seo from '../../components/Seo'
-import EquipmentBrowse from '../../components/EquipmentBrowse'
-import EquipmentDetails from '../../components/EquipmentDetails'
-import { EQUIPMENT_CATEGORIES, SERVICE_AREAS, SITE_DELIVERY_LINE, SITE_NAME } from '../../config/site'
+import Header from '../../../components/Header'
+import Footer from '../../../components/Footer'
+import Seo from '../../../components/Seo'
+import EquipmentBrowse from '../../../components/EquipmentBrowse'
+import EquipmentDetails from '../../../components/EquipmentDetails'
+import { EQUIPMENT_CATEGORIES, SERVICE_AREAS, SITE_DELIVERY_LINE, SITE_NAME } from '../../../config/site'
 import Link from 'next/link'
 
 type Props = { category: string }
