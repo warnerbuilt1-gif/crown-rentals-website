@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import PhoneLink, { PhoneNumber } from './PhoneLink'
-import { SERVICE_AREAS, SITE_ADDRESS, SITE_CITY, SITE_CONSTRUCTION_URL, SITE_CREDENTIAL, SITE_DELIVERY_LINE, SITE_EMAIL, SITE_HOURS, SITE_NAME, SITE_OWNER, SITE_SERVICE_AREA, SITE_SLOGAN, SITE_SMS_URI } from '../config/site'
+import { SERVICE_AREAS, SITE_ADDRESS, SITE_CITY, SITE_CONSTRUCTION_URL, SITE_CREDENTIAL, SITE_DELIVERY_LINE, SITE_EMAIL, SITE_GOOGLE_URL, SITE_HOURS, SITE_LEGAL_NAME, SITE_NAME, SITE_OWNER, SITE_SERVICE_AREA, SITE_SLOGAN, SITE_SMS_URI } from '../config/site'
 
 export default function Footer() {
   return (
@@ -26,7 +26,7 @@ export default function Footer() {
           <p>{SITE_DELIVERY_LINE}</p>
           <p>{SITE_CITY}, Montana · Run by {SITE_OWNER}</p>
           <p>Serving {SITE_SERVICE_AREA}.</p>
-          <p>© {new Date().getFullYear()} {SITE_NAME}</p>
+          <p>© {new Date().getFullYear()} {SITE_LEGAL_NAME}</p>
         </div>
         <nav className="footer-nav" aria-label="Footer">
           <Link href="/equipment/earthmoving/">Earthmoving</Link>
@@ -51,6 +51,9 @@ export default function Footer() {
           </p>
           <p>
             Email: <a href={`mailto:${SITE_EMAIL}`} className="footer-link">{SITE_EMAIL}</a>
+          </p>
+          <p>
+            <a href={SITE_GOOGLE_URL} className="footer-link" target="_blank" rel="noreferrer">Find us on Google</a>
           </p>
         </div>
       </div>

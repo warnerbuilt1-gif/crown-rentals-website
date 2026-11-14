@@ -1,9 +1,11 @@
 export const SITE_NAME = 'Crown Rentals'
+export const SITE_LEGAL_NAME = 'Crown Rentals LLC'
 export const SITE_OWNER = 'Neal Warner'
 export const SITE_SLOGAN = 'Crown the job.'
 export const SITE_CREDENTIAL = 'Licensed and insured'
 export const SITE_TAGLINE = 'Premium iron. Local yard.'
 export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://crownrentalsmt.com'
+export const SITE_GOOGLE_URL = 'https://share.google/TPgiNGOPZHdlWNZw6'
 export const SITE_CONSTRUCTION_URL = 'https://crownconstructionmt.com'
 export const SITE_DESCRIPTION =
   'Neal Warner rents equipment at 2121 Garfield St, Anaconda, MT. Call (406) 595-4472.'
@@ -642,9 +644,11 @@ export function canonicalUrl(path: string) {
 export function rentalJsonLd() {
   return {
     '@context': 'https://schema.org',
-    '@type': 'EquipmentRental',
+    '@type': ['LocalBusiness', 'EquipmentRental'],
     name: SITE_NAME,
+    legalName: SITE_LEGAL_NAME,
     url: `${SITE_URL}/`,
+    sameAs: [SITE_GOOGLE_URL],
     telephone: '+1-406-595-4472',
     email: SITE_EMAIL,
     image: `${SITE_URL}/skid-steer-cat.jpg`,
