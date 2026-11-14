@@ -1,11 +1,10 @@
 import { FormEvent, useState } from 'react'
-import Link from 'next/link'
 import Seo from '../components/Seo'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
 import PhoneLink from '../components/PhoneLink'
 import { mailInquiryHref } from '../components/InquiryButtons'
-import { ATTACHMENTS, FLEET, SITE_EMAIL, SITE_NAME, SITE_PHONE_TEL_URI, SITE_SMS_URI, machineRentalLabel } from '../config/site'
+import { SITE_EMAIL, SITE_NAME, SITE_PHONE_TEL_URI, SITE_SMS_URI } from '../config/site'
 
 const BENEFITS = [
   'Priority scheduling',
@@ -13,18 +12,6 @@ const BENEFITS = [
   'Delivery to your job site',
   'Owner-operated by Neal',
 ] as const
-
-const ICF_SLUGS = [
-  'skid-steer',
-  'plate-wacker',
-  'power-trowel',
-  'concrete-saw',
-  'texas-fresno',
-  'knee-boards',
-  'finishing-tools',
-] as const
-
-const SKID_TOOLS = ['Auger', 'Standard bucket'] as const
 
 export default function Contractors() {
   const [company, setCompany] = useState('')
@@ -173,45 +160,6 @@ export default function Contractors() {
             )}
             <button type="submit" className="contact-submit">Send request</button>
           </form>
-        </section>
-
-        <section className="section">
-          <div className="section-shell">
-            <h2 className="section-title">ICF Foundation Package</h2>
-            <ul className="stack-list">
-              {ICF_SLUGS.map((slug) => {
-                const machine = FLEET.find((item) => item.slug === slug)
-                if (!machine) return null
-                const tools = slug === 'skid-steer'
-                  ? SKID_TOOLS.flatMap((name) => {
-                      const item = ATTACHMENTS.find((entry) => entry.name === name)
-                      return item ? [item] : []
-                    })
-                  : []
-                return (
-                  <li key={slug}>
-                    <Link href={`/equipment/${machine.groups[0]}/${machine.slug}/`} className="footer-link">
-                      {machineRentalLabel(slug)}
-                    </Link>
-                    {tools.length > 0 ? (
-                      <>
-                        {' with '}
-                        {tools.map((item, index) => (
-                          <span key={item.name}>
-                            <Link href="/attachments/" className="footer-link">{item.name.toLowerCase()}</Link>
-                            {index < tools.length - 1 ? ' and ' : ''}
-                          </span>
-                        ))}
-                      </>
-                    ) : null}
-                  </li>
-                )
-              })}
-            </ul>
-            <p>
-              <a href={SITE_PHONE_TEL_URI} className="footer-link">Call for package price.</a>
-            </p>
-          </div>
         </section>
       </main>
       <Footer />
