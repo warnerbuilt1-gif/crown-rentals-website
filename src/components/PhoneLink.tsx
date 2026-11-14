@@ -1,4 +1,4 @@
-import { SITE_PHONE_DISPLAY, SITE_PHONE_TEL_URI } from '../config/site'
+import { SITE_PHONE_DISPLAY, SITE_PHONE_TEL_URI, SITE_PHOTO_SMS_URI } from '../config/site'
 
 type PhoneLinkProps = {
   className?: string
@@ -17,6 +17,14 @@ export function PhoneNumber({ className }: { className?: string }) {
   return (
     <a href={SITE_PHONE_TEL_URI} className={className}>
       {SITE_PHONE_DISPLAY}
+    </a>
+  )
+}
+
+export function TextPhotoLink({ className, children }: { className?: string; children?: React.ReactNode }) {
+  return (
+    <a href={SITE_PHOTO_SMS_URI} className={className}>
+      {children ?? 'Text Neal a photo'}
     </a>
   )
 }

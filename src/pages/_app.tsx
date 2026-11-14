@@ -3,6 +3,7 @@ import type { AppProps } from 'next/app'
 import Head from 'next/head'
 import { DM_Sans, Oswald } from 'next/font/google'
 import MobileCallBar from '../components/MobileCallBar'
+import { TextPhotoLink } from '../components/PhoneLink'
 import ReserveModal from '../components/ReserveModal'
 import { ReserveProvider } from '../components/ReserveContext'
 import { rentalJsonLd, SITE_DESCRIPTION, SITE_NAME, SITE_URL } from '../config/site'
@@ -56,6 +57,7 @@ export default function App({ Component, pageProps }: AppProps) {
       </Head>
       <Component {...pageProps} />
       <MobileCallBar />
+      <TextPhotoLink className="text-photo-float">Text Neal a photo</TextPhotoLink>
       <ReserveModal />
       </div>
     </ReserveProvider>

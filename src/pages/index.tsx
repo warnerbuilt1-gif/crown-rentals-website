@@ -10,7 +10,7 @@ import TrustPanel from '../components/TrustPanel'
 import Reveal from '../components/Reveal'
 import JobSelector from '../components/JobSelector'
 import CategoryStrip from '../components/CategoryStrip'
-import PhoneLink, { CallForPrice } from '../components/PhoneLink'
+import PhoneLink, { CallForPrice, TextPhotoLink } from '../components/PhoneLink'
 import { ATTACHMENTS, FLEET, HOME_FAQS, SERVICE_AREAS, SITE_CITY, SITE_CONSTRUCTION_URL, SITE_DELIVERY_LINE, SITE_HOURS_SHORT, SITE_NAME, SITE_OWNER, SITE_SERVICE_AREA, machineInCategory } from '../config/site'
 
 export default function Home() {
@@ -240,7 +240,10 @@ export default function Home() {
                 </p>
                 <p>[PLACEHOLDER: years running Cat]</p>
                 <p>[PLACEHOLDER: certifications/qualifications]</p>
-                <PhoneLink className="btn-secondary" />
+                <div className="hero-actions">
+                  <PhoneLink className="btn-secondary" />
+                  <TextPhotoLink className="btn-secondary" />
+                </div>
               </div>
             </div>
           </div>

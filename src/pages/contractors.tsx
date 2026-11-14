@@ -2,7 +2,7 @@ import { FormEvent, useState } from 'react'
 import Seo from '../components/Seo'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
-import PhoneLink from '../components/PhoneLink'
+import PhoneLink, { TextPhotoLink } from '../components/PhoneLink'
 import { mailInquiryHref } from '../components/InquiryButtons'
 import { SITE_EMAIL, SITE_NAME, SITE_PHONE_TEL_URI, SITE_SMS_URI } from '../config/site'
 
@@ -65,6 +65,7 @@ export default function Contractors() {
           </p>
           <div className="hero-actions page-actions">
             <PhoneLink className="btn-primary" />
+            <TextPhotoLink className="btn-secondary" />
           </div>
         </section>
 

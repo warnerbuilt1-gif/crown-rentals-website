@@ -2,9 +2,9 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
 import { useEffect, useId, useRef, useState } from 'react'
-import PhoneLink from './PhoneLink'
+import PhoneLink, { TextPhotoLink } from './PhoneLink'
 import ReserveButton from './ReserveButton'
-import { SITE_CREDENTIAL, SITE_NAME, SITE_SLOGAN } from '../config/site'
+import { SITE_CREDENTIAL, SITE_NAME, SITE_PHONE_DISPLAY, SITE_SLOGAN } from '../config/site'
 
 const navItems = [
   { href: '/', label: 'Home' },
@@ -91,6 +91,10 @@ export default function Header() {
         </nav>
 
         <div className="header-tools">
+          <TextPhotoLink className="text-photo-desktop">
+            <strong>{SITE_PHONE_DISPLAY}</strong>
+            <span>Text a photo of your job</span>
+          </TextPhotoLink>
           <PhoneLink className="header-phone" />
           <button
             ref={toggleRef}

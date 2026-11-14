@@ -10,6 +10,8 @@ export const SITE_DESCRIPTION =
 export const SITE_PHONE_DISPLAY = '(406) 595-4472'
 export const SITE_PHONE_TEL_URI = 'tel:4065954472'
 export const SITE_SMS_URI = 'sms:+14065954472'
+export const SITE_PHOTO_TEXT = "Hi Neal, here's a photo of my job. What machine do I need?"
+export const SITE_PHOTO_SMS_URI = `${SITE_SMS_URI}?&body=${encodeURIComponent(SITE_PHOTO_TEXT)}`
 export const SITE_EMAIL = '4crownrentals@gmail.com'
 export const SITE_CITY = 'Anaconda'
 export const SITE_REGION = 'Southwest Montana'
@@ -551,7 +553,8 @@ export const FAQ_PAGE = [
   },
   {
     question: 'What if a machine breaks down?',
-    answer: '[PLACEHOLDER: breakdown policy]',
+    answer:
+      "Call or text Neal right away. We'll troubleshoot it with you, and if needed, repair or swap the machine as soon as possible. Repair costs depend on the cause: normal wear is on us, while damage from misuse or accidents is billed to the renter.",
   },
 ] as const
 
