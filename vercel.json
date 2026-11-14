@@ -16,7 +16,7 @@
       "source": "/:path*",
       "has": [{ "type": "host", "value": "www.crownrentalsmt.com" }],
       "destination": "https://crownrentalsmt.com/:path*",
-      "statusCode": 308
+      "permanent": true
     }
   ]
 }
