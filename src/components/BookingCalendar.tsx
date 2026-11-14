@@ -1,12 +1,26 @@
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import {
   addDays,
   isHeld,
   monthMatrix,
-  parseISODate,
   rentalDays,
   todayISO,
 } from '../lib/booking'
+
+const MONTH_NAMES = [
+  'January',
+  'February',
+  'March',
+  'April',
+  'May',
+  'June',
+  'July',
+  'August',
+  'September',
+  'October',
+  'November',
+  'December',
+]
 
 const WEEKDAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
 
@@ -25,16 +39,25 @@ type BookingCalendarProps = {
 }
 
 export default function BookingCalendar({ start, end, slugs, onChange }: BookingCalendarProps) {
-  const today = todayISO()
-  const initial = parseISODate(start || today)
-  const [cursor, setCursor] = useState({ year: initial.getFullYear(), month: initial.getMonth() })
+  const [cursor, setCursor] = useState<{ year: number; month: number } | null>(null)
+  const [today, setToday] = useState('')
 
-  const cells = useMemo(() => monthMatrix(cursor.year, cursor.month), [cursor])
-  const label = new Date(cursor.year, cursor.month, 1).toLocaleString('en-US', { month: 'long', year: 'numeric' })
+  useEffect(() => {
+    const now = new Date()
+    setCursor({ year: now.getFullYear(), month: now.getMonth() })
+    setToday(todayISO())
+  }, [])
+
+  const cells = useMemo(
+    () => (cursor ? monthMatrix(cursor.year, cursor.month) : []),
+    [cursor],
+  )
+  const label = cursor ? `${MONTH_NAMES[cursor.month]} ${cursor.year}` : '\u00a0'
   const span = start && end ? rentalDays(start, end) : 0
 
   const pick = (iso: string) => {
-    if (iso < today) return
+    const now = todayISO()
+    if (iso < now) return
     if (!start || (start && end)) {
       onChange(iso, '')
       return
@@ -47,7 +70,8 @@ export default function BookingCalendar({ start, end, slugs, onChange }: Booking
   }
 
   const applyPreset = (days: number) => {
-    const from = start && start >= today ? start : today
+    const now = todayISO()
+    const from = start && start >= now ? start : now
     onChange(from, addDays(from, Math.max(0, days - 1)))
   }
 
@@ -62,14 +86,16 @@ export default function BookingCalendar({ start, end, slugs, onChange }: Booking
   return (
     <div className="cal">
       <div className="cal-toolbar">
-        <button type="button" className="cal-nav" onClick={() => setCursor((value) => {
+        <button type="button" className="cal-nav" disabled={!cursor} onClick={() => setCursor((value) => {
+          if (!value) return value
           const date = new Date(value.year, value.month - 1, 1)
           return { year: date.getFullYear(), month: date.getMonth() }
         })}>
           Prev
         </button>
         <p className="cal-label">{label}</p>
-        <button type="button" className="cal-nav" onClick={() => setCursor((value) => {
+        <button type="button" className="cal-nav" disabled={!cursor} onClick={() => setCursor((value) => {
+          if (!value) return value
           const date = new Date(value.year, value.month + 1, 1)
           return { year: date.getFullYear(), month: date.getMonth() }
         })}>
@@ -96,7 +122,7 @@ export default function BookingCalendar({ start, end, slugs, onChange }: Booking
       <div className="cal-grid">
         {cells.map((iso, index) => {
           if (!iso) return <span key={`empty-${index}`} className="cal-cell is-empty" />
-          const past = iso < today
+          const past = Boolean(today) && iso < today
           const selected = inRange(iso)
           const isStart = iso === start
           const isEnd = iso === end

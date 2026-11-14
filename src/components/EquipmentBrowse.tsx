@@ -3,13 +3,19 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { FLEET, FILTER_TAGS, SITE_PHONE_TEL_URI, categoryFromLocation, machineInCategory } from '../config/site'
-import { availabilityLabel } from '../lib/booking'
+import { useAvailabilityLabel } from '../lib/booking'
 import Reveal from './Reveal'
 import SpecList from './SpecList'
 import PriceBlock from './PriceBlock'
 
 type FilterId = (typeof FILTER_TAGS)[number]['id']
 type ViewMode = 'grid' | 'list'
+
+function EquipmentStatus({ slug }: { slug: string }) {
+  const label = useAvailabilityLabel(slug)
+  if (!label) return null
+  return <span className="badge badge-status">{label}</span>
+}
 
 export default function EquipmentBrowse({ headingId, category }: { headingId?: string; category?: string }) {
   const router = useRouter()
@@ -95,7 +101,7 @@ export default function EquipmentBrowse({ headingId, category }: { headingId?: s
                   />
                   <div className="equip-badges">
                     {item.featured ? <span className="badge badge-featured">Featured</span> : null}
-                    <span className="badge badge-status">{availabilityLabel(item.slug)}</span>
+                    <EquipmentStatus slug={item.slug} />
                   </div>
                 </div>
                 <div className="equip-card-copy">

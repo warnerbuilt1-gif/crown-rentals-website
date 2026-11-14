@@ -64,8 +64,8 @@ export default function Header() {
   return (
     <header className="site-header">
       <div className="header-bar">
-        <Link href="/" className="header-brand" aria-label={`${SITE_NAME} home`}>
-          <Image src="/crown-mark.png" alt="" width={645} height={582} className="header-mark" priority />
+        <Link href="/" className="header-brand" aria-label={`${SITE_NAME} ${SITE_SLOGAN} ${SITE_CREDENTIAL}`}>
+          <Image src="/crown-mark.webp" alt="" width={110} height={99} className="header-mark" priority />
           <span className="header-brand-copy">
             <span className="header-wordmark metal-text">{SITE_NAME}</span>
             <span className="header-slogan">{SITE_SLOGAN}</span>

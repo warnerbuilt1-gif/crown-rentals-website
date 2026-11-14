@@ -10,7 +10,7 @@ export const SITE_DESCRIPTION =
 export const SITE_PHONE_DISPLAY = '(406) 595-4472'
 export const SITE_PHONE_TEL_URI = 'tel:4065954472'
 export const SITE_SMS_URI = 'sms:+14065954472'
-export const SITE_EMAIL = 'crownconstrustion@gmail.com'
+export const SITE_EMAIL = '4crownrentals@gmail.com'
 export const SITE_CITY = 'Anaconda'
 export const SITE_REGION = 'Southwest Montana'
 export const SITE_ADDRESS = '2121 Garfield St, Anaconda, MT 59711'
@@ -55,37 +55,6 @@ export function categoryFromLocation(queryValue?: string | string[]): EquipmentC
   }
   return categoryFromQuery(queryValue)
 }
-
-export const REVIEWS = [
-  {
-    name: 'Marcus H.',
-    place: 'Butte',
-    machine: 'Skid steer + grapple',
-    quote: 'Neal kitted the attachments before I left the yard. Tight lot, clean machine, no runaround.',
-    photo: '/skid-steer-cat.jpg',
-  },
-  {
-    name: 'Lena P.',
-    place: 'Deer Lodge',
-    machine: '35-foot Z-boom',
-    quote: 'Booked the boom for a siding day. Pickup was simple and the machine was ready when I rolled in.',
-    photo: '/z-boom-genie.jpg',
-  },
-  {
-    name: 'Cole R.',
-    place: 'Philipsburg',
-    machine: 'Trench roller',
-    quote: 'Had a utility cut that a plate would not finish. The trench roller packed it and we were gone.',
-    photo: '/rammax-1575.jpg',
-  },
-  {
-    name: 'Dana S.',
-    place: 'Anaconda',
-    machine: 'Power trowel + fresno',
-    quote: 'Poured a garage slab and left with the trowel, Texas fresno, and knee boards. Finish came out clean.',
-    photo: '/power-trowel.jpg',
-  },
-] as const
 
 export const RENTAL_POLICIES = [
   {

@@ -7,9 +7,14 @@ import PhoneLink from './PhoneLink'
 import ReserveButton from './ReserveButton'
 import SpecList from './SpecList'
 import { EQUIPMENT_CATEGORIES, FLEET, categoryFromLocation, machineInCategory } from '../config/site'
-import { availabilityLabel } from '../lib/booking'
+import { useAvailabilityLabel } from '../lib/booking'
 
 type CategoryId = (typeof EQUIPMENT_CATEGORIES)[number]['id']
+
+function MachineKicker({ kicker, slug }: { kicker: string; slug: string }) {
+  const label = useAvailabilityLabel(slug)
+  return <p className="kicker">{label ? `${kicker} · ${label}` : kicker}</p>
+}
 
 export default function EquipmentDetails({ category }: { category?: string }) {
   const router = useRouter()
@@ -31,7 +36,7 @@ export default function EquipmentDetails({ category }: { category?: string }) {
         <article className="detail-card" id={machine.slug} key={machine.slug}>
           <ProductGallery images={machine.gallery} alt={machine.alt} position={machine.imagePosition} fit={machine.fit} />
           <div className="detail-copy">
-            <p className="kicker">{machine.kicker} · {availabilityLabel(machine.slug)}</p>
+            <MachineKicker kicker={machine.kicker} slug={machine.slug} />
             <h2>{machine.name}</h2>
             <PriceBlock dailyRate={machine.dailyRate} deposit={machine.deposit} />
             <SpecList specs={machine.specs} />

@@ -29,7 +29,7 @@ export default function Attachments() {
           <div className="section-shell">
             <div className="attach-photo attach-photo-wide">
                 <Image
-                  src="/skid-bucket-job.jpg"
+                  src="/skid-bucket-job.webp"
                   alt="Track loader with bucket on the job — Crown Rentals attachments start here"
                   width={1600}
                   height={900}

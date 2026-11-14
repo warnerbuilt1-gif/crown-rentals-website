@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react'
 import { FLEET, SITE_DELIVERY_FEE, SITE_WEEKLY_DAYS, formatUsd } from '../config/site'
 
 export type FleetItem = (typeof FLEET)[number]
@@ -55,12 +56,20 @@ export function availabilityLabel(slug: string) {
   const start = todayISO()
   for (let index = 0; index < 10; index += 1) {
     if (!isHeld(slug, addDays(start, index))) {
-      if (index === 0) return 'Open today'
+      if (index === 0) return 'Call to confirm availability'
       if (index < 3) return 'Open this week'
       return `Open ${addDays(start, index).slice(5)}`
     }
   }
   return 'Call for dates'
+}
+
+export function useAvailabilityLabel(slug: string) {
+  const [label, setLabel] = useState('')
+  useEffect(() => {
+    setLabel(availabilityLabel(slug))
+  }, [slug])
+  return label
 }
 
 export type QuoteResult = {

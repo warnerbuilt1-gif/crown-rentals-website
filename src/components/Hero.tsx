@@ -10,10 +10,10 @@ export default function Hero() {
       <p className="hero-locale">{SITE_SLOGAN} · {SITE_CITY}, Montana · Run by {SITE_OWNER}</p>
       <div className="hero-lockup">
         <Image
-          src="/logo-hero.png"
+          src="/logo-hero.webp"
           alt="Crown Rentals — crown mark with skid steer and Z-boom"
-          width={720}
-          height={720}
+          width={704}
+          height={704}
           sizes="(max-width: 700px) 78vw, 420px"
           priority
           className="hero-logo"
