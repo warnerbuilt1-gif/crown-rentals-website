@@ -37,6 +37,7 @@ export default function Footer() {
           <Link href="/equipment">Equipment</Link>
           <Link href="/book">Book</Link>
           <Link href="/attachments">Attachments</Link>
+          <Link href="/contractors">Contractors</Link>
           <Link href="/about">About</Link>
           <Link href="/contact">Reserve</Link>
           <a href={SITE_CONSTRUCTION_URL}>Crown Construction</a>

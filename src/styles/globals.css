@@ -974,6 +974,18 @@ img {
   margin-bottom: 0;
 }
 
+.stack-list {
+  margin: 0.2rem 0 1rem;
+  padding: 0;
+  list-style: none;
+}
+
+.stack-list li {
+  padding: 0.45rem 0;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+}
+
 .contact-phone {
   display: inline-block;
   margin: 0.15rem 0 0.85rem;
