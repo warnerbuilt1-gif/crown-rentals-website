@@ -3,7 +3,7 @@ import Header from '../../../components/Header'
 import Footer from '../../../components/Footer'
 import Seo from '../../../components/Seo'
 import EquipmentDetails from '../../../components/EquipmentDetails'
-import { FLEET, machineRentalLabel, machineSeo } from '../../../config/site'
+import { FLEET, FIRST_RUN_LINE, machineRentalLabel, machineSeo } from '../../../config/site'
 
 type Props = { category: string; slug: string }
 
@@ -23,6 +23,12 @@ export default function MachinePage({ category, slug }: Props) {
           <p>{machine?.summary}</p>
         </section>
         <EquipmentDetails slug={slug} />
+        <section className="section">
+          <div className="section-shell">
+            <h2 className="section-title">First time running it?</h2>
+            <p className="section-intro">{FIRST_RUN_LINE}</p>
+          </div>
+        </section>
       </main>
       <Footer />
     </>

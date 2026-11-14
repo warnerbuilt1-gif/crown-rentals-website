@@ -826,6 +826,52 @@ img {
   color: var(--muted);
 }
 
+.faq-accordion {
+  display: grid;
+  gap: 0.75rem;
+  max-width: 46rem;
+}
+
+.faq-accordion details {
+  padding: 1.15rem 1.25rem;
+  border-radius: var(--radius);
+  border: 1px solid var(--line);
+  background: var(--bg-raised);
+}
+
+.faq-accordion summary {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: center;
+  cursor: pointer;
+  font-family: var(--font-body);
+  font-weight: 650;
+  color: var(--cream);
+  list-style: none;
+}
+
+.faq-accordion summary::-webkit-details-marker {
+  display: none;
+}
+
+.faq-accordion summary::after {
+  content: '+';
+  color: var(--copper);
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  line-height: 1;
+}
+
+.faq-accordion details[open] summary::after {
+  content: '–';
+}
+
+.faq-accordion details p {
+  margin: 0.65rem 0 0;
+  color: var(--muted);
+}
+
 @media (min-width: 800px) {
   .faq-grid {
     grid-template-columns: 1fr 1fr;
@@ -860,6 +906,11 @@ img {
   margin: 0;
   max-width: 40rem;
   color: var(--muted);
+}
+
+.page-hero .footer-credential {
+  margin-top: 0.85rem;
+  color: var(--copper-light);
 }
 
 .detail-stack {

@@ -509,6 +509,61 @@ export const JOB_GUIDES = [
   },
 ] as const
 
+export const FIRST_RUN_LINE =
+  'Neal can walk you through the controls and safety basics at delivery or pickup. Call or text to ask.'
+
+export const FAQ_PAGE = [
+  {
+    question: 'How do I book a machine?',
+    answer:
+      'Open Book, pick the job or check the machines, then tap start and return on the calendar. Guest checkout sends the request. Or call or text. Neal confirms the window, then sends a Stripe link for the deposit.',
+  },
+  {
+    question: 'Do you deliver, and what does it cost?',
+    answer: SITE_DELIVERY_LINE,
+  },
+  {
+    question: "What's your cancellation policy?",
+    answer: `${RENTAL_POLICIES[0].copy} ${RENTAL_POLICIES[1].copy}`,
+  },
+  {
+    question: 'Do I need experience to run the equipment?',
+    answer: FIRST_RUN_LINE,
+  },
+  {
+    question: 'What areas do you serve?',
+    answer: `Serving ${SITE_SERVICE_AREA}.`,
+  },
+  {
+    question: 'How do I pay?',
+    answer:
+      'Guest checkout first. After Neal confirms the window, you get a Stripe payment link for the deposit hold. No card number is typed on this site.',
+  },
+  {
+    question: 'Do I need a deposit or ID?',
+    answer: RENTAL_POLICIES[2].copy,
+  },
+  {
+    question: 'What if a machine breaks down?',
+    answer: '[PLACEHOLDER: breakdown policy]',
+  },
+] as const
+
+export function faqPageJsonLd() {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: FAQ_PAGE.map((item) => ({
+      '@type': 'Question',
+      name: item.question,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: item.answer,
+      },
+    })),
+  }
+}
+
 export const CONTRACT_TERMS = [
   'This request is not a lock until Neal confirms the window, rate, and deposit.',
   'A 2-hour hold starts when the request is sent. Cancel free up to 24 hours before start.',
