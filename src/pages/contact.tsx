@@ -9,8 +9,8 @@ export default function Contact() {
   return (
     <>
       <Seo
-        title={`Reserve Equipment in Anaconda, MT | ${SITE_NAME}`}
-        description="Reserve equipment in Anaconda, MT. Pick dates online or call Crown Rentals at (406) 595-4472."
+        title={`Contact ${SITE_NAME} in Anaconda, MT`}
+        description={`Call ${SITE_PHONE_DISPLAY} or email ${SITE_EMAIL}. ${SITE_ADDRESS}. ${SITE_HOURS}.`}
         path="/contact/"
       />
       <Header />

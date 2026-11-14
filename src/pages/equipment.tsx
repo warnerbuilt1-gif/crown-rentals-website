@@ -10,7 +10,7 @@ export default function Equipment() {
   return (
     <>
       <Seo
-        title={`Equipment Rental in Anaconda, MT | ${SITE_NAME}`}
+        title={`Current Equipment for Rent | ${SITE_NAME}`}
         description="Skid steer, boom, trench roller, and concrete tools for rent in Anaconda, MT. See day rates. Call Crown Rentals."
         path="/equipment/"
       />

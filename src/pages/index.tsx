@@ -17,8 +17,8 @@ export default function Home() {
   return (
     <>
       <Seo
-        title={`Equipment Rental in Anaconda, MT | ${SITE_NAME}`}
-        description={`Rent a skid steer, boom lift, and compaction in Anaconda, MT. ${SITE_DELIVERY_LINE} Call Crown Rentals.`}
+        title={`${SITE_NAME} | Equipment Rental in Anaconda & Butte, MT`}
+        description={`Neal Warner rents a skid steer, boom lift, compaction, and concrete tools from Anaconda, MT. ${SITE_DELIVERY_LINE}`}
         path="/"
       />
       <Header />

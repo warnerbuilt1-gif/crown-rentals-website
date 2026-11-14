@@ -9,8 +9,14 @@ type Area = (typeof SERVICE_AREAS)[number]
 
 export default function AreaPage({ area }: { area: Area }) {
   const categories = EQUIPMENT_CATEGORIES.filter((item) => item.id !== 'all')
-  const title = `Equipment Rental in ${area.city}, MT | ${SITE_NAME}`
-  const description = `Rent a skid steer, boom lift, and compaction in ${area.city}, MT. ${SITE_DELIVERY_LINE} Call Crown Rentals.`
+  const title =
+    area.slug === 'anaconda-mt'
+      ? `Anaconda Equipment Rental | ${SITE_NAME}`
+      : `Equipment Rental in ${area.city}, MT | ${SITE_NAME}`
+  const description =
+    area.slug === 'anaconda-mt'
+      ? area.lead
+      : `Rent a skid steer, boom lift, and compaction in ${area.city}, MT. ${SITE_DELIVERY_LINE} Call Crown Rentals.`
 
   return (
     <>

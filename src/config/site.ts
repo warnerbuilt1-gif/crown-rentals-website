@@ -13,7 +13,7 @@ export const SITE_PHONE_DISPLAY = '(406) 595-4472'
 export const SITE_PHONE_TEL_URI = 'tel:4065954472'
 export const SITE_SMS_URI = 'sms:+14065954472'
 export const SITE_PHOTO_TEXT = "Hi Neal, here's a photo of my job. What machine do I need?"
-export const SITE_PHOTO_SMS_URI = `${SITE_SMS_URI}?&body=${encodeURIComponent(SITE_PHOTO_TEXT)}`
+export const SITE_PHOTO_SMS_URI = `${SITE_SMS_URI}?body=${encodeURIComponent(SITE_PHOTO_TEXT)}`
 export const SITE_EMAIL = '4crownrentals@gmail.com'
 export const SITE_CITY = 'Anaconda'
 export const SITE_REGION = 'Southwest Montana'
@@ -591,9 +591,17 @@ export function machineSeo(slug: string) {
   const machine = FLEET.find((item) => item.slug === slug)
   const label = machineRentalLabel(slug)
   const rate = machine ? `${formatUsd(machine.dailyRate)} a day` : 'Call for price'
+  const rental =
+    label === 'Knee Boards'
+      ? 'Rent knee boards'
+      : label === 'Finishing Tools'
+        ? 'Rent finishing tools'
+        : label === 'Texas Fresno'
+          ? 'Rent a Texas fresno'
+          : `Rent a ${label.toLowerCase()}`
   return {
     title: `${label} Rental in Anaconda & Butte, MT | ${SITE_NAME}`,
-    description: `Rent a ${label.toLowerCase()} in Anaconda and Butte, MT. ${rate}. Week bills as ${SITE_WEEKLY_DAYS} days. ${SITE_DELIVERY_LINE}`,
+    description: `${rental} in Anaconda and Butte, MT. ${rate}. Week bills as ${SITE_WEEKLY_DAYS} days. ${SITE_DELIVERY_LINE}`,
   }
 }
 

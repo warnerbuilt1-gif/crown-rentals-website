@@ -8,8 +8,8 @@ export default function Book() {
   return (
     <>
       <Seo
-        title={`Reserve Equipment in Anaconda, MT | ${SITE_NAME}`}
-        description="Check availability and reserve equipment in Anaconda, MT. No sales tax. Call Crown Rentals to lock the date."
+        title={`Book Equipment Dates | ${SITE_NAME}`}
+        description={`Pick start and return on the calendar in Anaconda, MT. Guest checkout, no account. Neal confirms, then sends a card link for the deposit. ${SITE_DELIVERY_LINE}`}
         path="/book/"
       />
       <Header />
